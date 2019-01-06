@@ -21,6 +21,7 @@ public class WhatIfCalculator extends AppCompatActivity implements AdapterView.O
     boolean runningSelected = true;
     int scoreClass = 0;
     boolean elevation = true;
+    //This is a change to test branching
 
 
     @Override
