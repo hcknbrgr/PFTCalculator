@@ -22,7 +22,7 @@ public class WhatIfCalculator extends AppCompatActivity implements AdapterView.O
     int scoreClass = 0;
     boolean elevation = true;
     //This is a change to test branching
-
+    //This is test two
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
