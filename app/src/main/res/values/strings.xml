@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">PFT Calculator WHATIF</string>
+    <string name="app_title">USMC PFT Calculator</string>
+    <string name="whatif_title">What If Calculator</string>
+    <string name="score_spinner_label">Desired Score: </string>
+    <string name="whatif_button_text">Go to What If</string>
+    <string name="age_spinner_label">Age: </string>
+    <string name="gender_label">Gender: </string>
+    <string name="male_label">Male</string>
+    <string name="female_label">Female</string>
+    <string name="crunches_label">Crunches: </string>
+    <string name="run_label">Run Time: </string>
+    <string name="elevation_label">Elevation Adjustment: </string>
+    <string name="calculate_button_text">CALCULATE</string>
+    <string name="menu_PFT">PFT Calc</string>
+    <string name="menu_PFTWhatIf">What If Calc</string>
+    <string name="menu_coming_soon">Coming Soon!</string>
+    <string-array name="age_array">
+        <item>17–20</item>
+        <item>21–25</item>
+        <item>26–30</item>
+        <item>31–35</item>
+        <item>36–40</item>
+        <item>41–45</item>
+        <item>46–50</item>
+        <item>51+</item>
+    </string-array>
+    <string-array name="pushpull_array">
+        <item>Pullups</item>
+        <item>Pushups</item>
+    </string-array>
+    <string-array name="runrow_array">
+        <item>Run Time</item>
+        <item>Row Time</item>
+    </string-array>
+    <string-array name="score_array">
+        <item>First Class (235+)</item>
+        <item>Second Class (200-234)</item>
+        <item>Third Class (150-199)</item>
+    </string-array>
+</resources>
