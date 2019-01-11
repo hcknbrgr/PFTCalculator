@@ -1,7 +1,10 @@
 package com.usmc.usmcdrummer.pftcalculator;
 
 
-
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 
 public class PFT {
 
@@ -74,42 +77,60 @@ public class PFT {
         makeScores();
     }
 
-    public String getWhatIfResults(int desiredClass)
+    public SpannableStringBuilder getWhatIfResults(int desiredClass)
     {
         int whatIfTotal = TotalScore;
-        String resultsString = "";
+        int startLength;
+        SpannableStringBuilder resultsString = new SpannableStringBuilder();
+        StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+
+
+
         int desiredScore = classScore(desiredClass);
         int remainingScores = scoresRemaining();
-        if (remainingScores == 0)
-            return "All Scores Entered. Score: " + Integer.toString(TotalScore);
-        if (remainingScores == -1)
-            return "You failed an event!";
+        if (remainingScores == 0){
+            resultsString.append("All Scores Entered. Score: " + Integer.toString(TotalScore));
+            return resultsString;
+        }
+        if (remainingScores == -1){
+            resultsString.append("You failed an event!");
+            return resultsString;
+        }
         int neededScore = desiredScore - TotalScore;
         int scorePerEvent = neededScore / remainingScores + ((neededScore % remainingScores == 0) ? 0 : 1);
 
-        if(scorePerEvent > 100)
-            return "You cannot obtain that class!";
+        if(scorePerEvent > 100){
+            resultsString.append("You cannot obtain that class!");
+            return resultsString;
+        }
+
         if(pushrequired) {
-            if(scorePerEvent>70 && remainingScores==1)
-                return "Only pushups needed, more than 70 points required";
-            if ((neededScore - 70)/(remainingScores-1)>100)
-                return "Pushups needed, need too many points afterwards";
+            if(scorePerEvent>70 && remainingScores==1) {
+                resultsString.append( "Only pushups needed, more than 70 points required");
+                return resultsString;
+            }
+            if ((neededScore - 70)/(remainingScores-1)>100) {
+                resultsString.append("Pushups needed, need too many points afterwards");
+                return resultsString;
+            }
 
         }
 
-        resultsString += "\nDesired Class: " + Integer.toString(desiredClass+1) + //Returns the desired class 1, 2, or 3
-                "\nScore required: " + Integer.toString(desiredScore)+ "\n";  //Returns the score required of that class
+        resultsString.append("\nDesired Class: " + Integer.toString(desiredClass+1) + //Returns the desired class 1, 2, or 3
+                "\nScore required: " + Integer.toString(desiredScore)+ "\n");  //Returns the score required of that class
 
         if(pullRequired) {
-
             int[] pullstuff;
             pullstuff = getPullIndex(scorePerEvent);
             neededScore -= pullstuff[1];
             remainingScores--;
             if(remainingScores>0)
                 scorePerEvent=neededScore / remainingScores + ((neededScore % remainingScores == 0) ? 0 : 1);
-            resultsString += "\nPULLUPS REQUIRED: " + Integer.toString(pullstuff[0]) +
+            String temp = "\nPullups Required: " + Integer.toString(pullstuff[0]) +
                     " Score: " + pullstuff[1];
+            startLength = resultsString.length();
+            resultsString.append(temp);
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             whatIfTotal += pullstuff[1];
         }
         else if(pushrequired) {
@@ -119,15 +140,24 @@ public class PFT {
             remainingScores--;
             if(remainingScores>0)
                 scorePerEvent=neededScore / remainingScores + ((neededScore % remainingScores == 0) ? 0 : 1);
-            resultsString += "\nPUSHUPS REQUIRED: " + Integer.toString(pushstuff[0]) +
+            String temp = "\nPushups Required: " + Integer.toString(pushstuff[0]) +
                     " Score: " + pushstuff[1];
+            startLength = resultsString.length();
+            resultsString.append(temp);
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             whatIfTotal += pushstuff[1];
         }
         else {
             if(PushupsScore==0)
-                resultsString+= "\nPullups: " + Integer.toString(Pullups) + " Score: " + Integer.toString(PullupsScore);
+                resultsString.append("\nPullups: ")
+                        .append(Integer.toString(Pullups))
+                        .append(" Score: ")
+                        .append(Integer.toString(PullupsScore));
             else
-                resultsString+= "\nPushups: " + Integer.toString(Pushups) + " Score: " + Integer.toString(PushupsScore);
+                resultsString.append("\nPushups: ")
+                        .append(Integer.toString(Pushups))
+                        .append(" Score: ")
+                        .append(Integer.toString(PushupsScore));
         }
 
         if(crunchRequired){
@@ -137,21 +167,27 @@ public class PFT {
             remainingScores--;
             if(remainingScores>0)
                 scorePerEvent=neededScore / remainingScores + ((neededScore % remainingScores == 0) ? 0 : 1);
-            resultsString += "\nCRUNCHES REQUIRED: " + Integer.toString(crunchstuff[0]) +
-                    " Score: " + crunchstuff[1];
+            startLength = resultsString.length();
+            resultsString.append("\nCrunches Required: ")
+                    .append(Integer.toString(crunchstuff[0]))
+                    .append(" Score: ")
+                    .append(Integer.toString(crunchstuff[1]));
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             whatIfTotal += crunchstuff[1];
         }
         else
-            resultsString += "\nCrunches: " + Crunches + " Score: " + CrunchesScore;
+            resultsString.append( "\nCrunches: " + Crunches + " Score: " + CrunchesScore);
 
         if(runRequired){
             int[]runstuff;
             runstuff = getRunIndex(scorePerEvent);
             neededScore -= runstuff[2];
             remainingScores--;
-            resultsString += "\nRUN FASTER THAN: " + Integer.toString(runstuff[0]) +
-                    ":" + Integer.toString(runstuff[1]) +
-                    " Score: " + runstuff[2];
+            startLength=resultsString.length();
+            resultsString.append("\nRun Faster Than: " + Integer.toString(runstuff[0]) +
+                    ":" + String.format("%02d",runstuff[1]) +
+                    " Score: " + runstuff[2]);
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             whatIfTotal += runstuff[2];
         }
         else if(rowRequired){
@@ -159,19 +195,21 @@ public class PFT {
             rowstuff = getRowIndex(scorePerEvent);
             neededScore -= rowstuff[2];
             remainingScores--;
-            resultsString += "\nROW FASTER THAN: " + Integer.toString(rowstuff[0]) +
-                    ":" + Integer.toString(rowstuff[1]) +
-                    "\nScore: " + rowstuff[2];
+            startLength = resultsString.length();
+            resultsString.append("\nRow Faster Than: " + Integer.toString(rowstuff[0]) +
+                    ":" + String.format("%02d",rowstuff[1]) +
+                    "\nScore: " + rowstuff[2]);
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             whatIfTotal += rowstuff[2];
         }
         else{
             if(RunScore == 0)
-                resultsString += "\nRow Time: " + RowTimeMin + ":" + RowTimeSec + " Score: " + RowScore;
+                resultsString.append( "\nRow Time: " + RowTimeMin + ":" + String.format("%02d",RowTimeSec) + " Score: " + RowScore);
             else
-                resultsString += "\nRun Time: " + RunTimeMin + ":" + RunTimeSec + " Score: " + RunScore;
+                resultsString.append("\nRun Time: " + RunTimeMin + ":" + String.format("%02d",RunTimeSec) + " Score: " + RunScore);
 
         }
-        resultsString += "\n\nTotal Score: " + Integer.toString(whatIfTotal);
+        resultsString.append("\n\nTotal Score: " + Integer.toString(whatIfTotal));
         return resultsString;
     }
 

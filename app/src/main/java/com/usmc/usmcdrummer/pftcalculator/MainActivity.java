@@ -18,24 +18,26 @@ Schedule of Releases:
 **** 0.9.3 - Change results to be in order of events
 **** ***** - RELEASE
 
+**** 1.0.0 - Get rid of toast
+**** 1.0.0 - Format what if run and row time to have 2 digits for seconds
 TODO 1.0.0 - Add button to go back to PFT Calculator
-TODO 1.0.0 - Add SpannableStringBuilder to format BOLD for required scores to make easier to read
+**** 1.0.0 - Add SpannableStringBuilder to format BOLD for required scores to make easier to read
 TODO 1.0.0 - Update with new 2019 standards per MCO 6100.13A W/ch 1
 TODO 1.0.0 - Update sceenshots
 TODO 1.0.0 - Create storefront banner
 TODO 1.0.0 - Write meaningful information on storefront
-TODO 1.0.0 - Change color schema, add image/graphic as banner
 TODO 1.0.0 - *******RELEASE**********
 
-TODO 2.0.0 - Make tabs to change between calculator and what-if
-TODO 2.0.0 - GUI Improvements
+TODO 1.1.0 - Make tabs to change between calculator and what-if
+TODO 1.1.0 - Restructure PFT.java to be more usable and take up less space?
+TODO 1.1.0 - GUI Improvements
 
-TODO 3.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
-TODO 3.0.0 - Add CFT Calculator
+TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
+TODO 2.0.0 - Add CFT Calculator
 
-TODO 4.0.0 - Add Body Fat Calculator
+TODO 3.0.0 - Add Body Fat Calculator
 
-TODO 5.0.0 - Add access to charts as data tables
+TODO 4.0.0 - Add access to charts as data tables
  */
 
 package com.usmc.usmcdrummer.pftcalculator;
@@ -45,6 +47,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -140,9 +147,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         alertDialogBuilder.setMessage(results);
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(MainActivity.this, "Please rate or email me with recommendations or changes!", Toast.LENGTH_LONG).show();
-            }
+            public void onClick(DialogInterface arg0, int arg1) {}
         });
 
         AlertDialog alertDialog = alertDialogBuilder.create();

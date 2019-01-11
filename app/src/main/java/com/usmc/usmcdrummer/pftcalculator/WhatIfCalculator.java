@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,8 +24,7 @@ public class WhatIfCalculator extends AppCompatActivity implements AdapterView.O
     boolean runningSelected = true;
     int scoreClass = 0;
     boolean elevation = true;
-    //This is a change to test branching
-    //This is test two
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +139,7 @@ public class WhatIfCalculator extends AppCompatActivity implements AdapterView.O
         int tempCrunch = 0;
         int tempRunMin = 0;
         int tempRunSec = 0;
+        SpannableStringBuilder results = new SpannableStringBuilder();
 
 
         tempPull = retrieveValue((EditText)findViewById(R.id.pullups_text_input));
@@ -145,21 +148,19 @@ public class WhatIfCalculator extends AppCompatActivity implements AdapterView.O
         tempRunSec = retrieveValue((EditText)findViewById(R.id.runtime_seconds_text_input));
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        String results;
+
         if(tempRunSec >59) {
-            results = "Please enter a valid time for seconds (<60)";
+            results.append("Please enter a valid time for seconds (<60)");
         }
         else {
             PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch, tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
-            results = pft.getWhatIfResults(scoreClass);
+            results.append(pft.getWhatIfResults(scoreClass));
         }
 
         alertDialogBuilder.setMessage(results);
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(WhatIfCalculator.this, "Please rate or email me with recommendations or changes!", Toast.LENGTH_LONG).show();
-            }
+            public void onClick(DialogInterface arg0, int arg1) {}
         });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
