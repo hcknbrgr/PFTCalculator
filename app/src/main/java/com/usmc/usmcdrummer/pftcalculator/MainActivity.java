@@ -26,9 +26,10 @@ Schedule of Releases:
 **** 1.0.0 - Write meaningful information on storefront
 **** 1.0.0 - *******RELEASE**********
 
+TODO 1.1.0 - Add title bar back in
 TODO 1.1.0 - Make tabs to change between calculator and what-if
 TODO 1.1.0 - Restructure PFT.java to be more usable and take up less space?
-TODO 1.1.0 - GUI Improvements
+TODO 1.1.0 - TEST AND RELEASE
 
 TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
 TODO 2.0.0 - Add CFT Calculator
@@ -45,6 +46,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -67,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         //Generate Content in spinner and preselect Radio Button
         Spinner ageSpinner = findViewById(R.id.age_spinner);
