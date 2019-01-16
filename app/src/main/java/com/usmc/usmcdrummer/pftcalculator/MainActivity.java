@@ -20,13 +20,11 @@ Schedule of Releases:
 
 **** 1.0.0 - Get rid of toast
 **** 1.0.0 - Format what if run and row time to have 2 digits for seconds
-TODO 1.0.0 - Add button to go back to PFT Calculator
 **** 1.0.0 - Add SpannableStringBuilder to format BOLD for required scores to make easier to read
-TODO 1.0.0 - Update with new 2019 standards per MCO 6100.13A W/ch 1
-TODO 1.0.0 - Update sceenshots
-TODO 1.0.0 - Create storefront banner
-TODO 1.0.0 - Write meaningful information on storefront
-TODO 1.0.0 - *******RELEASE**********
+**** 1.0.0 - Update with new 2019 standards per MCO 6100.13A W/ch 1
+**** 1.0.0 - Update sceenshots
+**** 1.0.0 - Write meaningful information on storefront
+**** 1.0.0 - *******RELEASE**********
 
 TODO 1.1.0 - Make tabs to change between calculator and what-if
 TODO 1.1.0 - Restructure PFT.java to be more usable and take up less space?
@@ -47,11 +45,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,8 +52,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

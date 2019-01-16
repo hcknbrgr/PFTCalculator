@@ -1,6 +1,5 @@
 package com.usmc.usmcdrummer.pftcalculator;
 
-
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -220,7 +219,7 @@ public class PFT {
         int[] PullTable;
         int minreps = 0;
         int index = 0;
-        if(Gender){
+        if(Gender){//MALE TABLE
             switch( ageGroup ) {
                 case 0: //***17-20
                     PullTable = new int[]{0, 40, 44, 48, 51, 55, 59, 63, 66, 70, 74, 78, 81, 85, 89, 93, 96, 100};
@@ -259,32 +258,39 @@ public class PFT {
                     break;
             }
         }
-        else{
-            minreps = 1;
+        else{//FEMALE TABLES
             switch (ageGroup){
                 case 0:
                     PullTable = new int[] {0,60,67,73,80,87,93,100};
+                    minreps = 1;
                     break;
                 case 1:
                     PullTable = new int[] {0,60,65,70,75,80,85,90,95,100};
+                    minreps=3;
                     break;
                 case 2:
-                    PullTable = new int[] {0,60,64,69,73,78,82,87,91,96,100};
+                    PullTable = new int[] {0,60,65,70,75,80,85,90,95,100};
+                    minreps = 4;
                     break;
                 case 3:
                     PullTable = new int[] {0,60,65,70,75,80,85,90,95,100};
+                    minreps = 3;
                     break;
                 case 4:
                     PullTable = new int[] {0,60, 66,71,77,83,89,94,100};
+                    minreps = 3;
                     break;
                 case 5:
-                    PullTable = new int[] {0,60,68,76,84,92,100};
+                    PullTable = new int[] {0,60,67, 73, 80, 87, 93, 100};
+                    minreps = 2;
                     break;
                 case 6:
-                    PullTable = new int[] {0,60,73,87,100};
+                    PullTable = new int[] {0,60,70, 80, 90,100};
+                    minreps = 2;
                     break;
                 case 7:
                     PullTable = new int[] {0,60,80,100};
+                    minreps = 2;
                     break;
                 default:
                     PullTable = new int[0];
@@ -1013,7 +1019,7 @@ public class PFT {
         int[] RunTable;
         int[] RowTable;
 
-        if(Gender){
+        if(Gender){//male tables
             switch( ageGroup ){
                 case 0:  //****************17-20*************************
                     PullTable = new int[]{0,40,44,48,51,55,59,63,66,70,74,78,81,85,89,93,96,100};
@@ -1050,7 +1056,7 @@ public class PFT {
                     RowTable = new int[] {0,40,41,42,43,44,44,45,46,47,48,49,50,51,52,53,53,54,55,56,57,58,59,60,61,61,62,63,64,65,66,67,68,69,70,70,71,72,73,74,75,76,77,78,79,79,80,81,82,83,84,85,86,87,87,88,89,90,91,92,93,94,95,96,96,97,98,99,100};
 
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,5,22,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,5,23,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1078,7 +1084,7 @@ public class PFT {
                     RowTable = new int[]{0,40,41,42,43,44,44,45,46,47,48,49,50,51,51,52,53,54,55,56,57,58,59,59,60,61,62,63,64,65,66,66,67,68,69,70,71,72,73,74,74,75,76,77,78,79,80,81,81,82,83,84,85,86,87,88,89,89,90,91,92,93,94,95,96,96,97,98,99,100};
 
                     //CALCULATE PULLUPS SCORE
-                    PullupsScore=PullTable[getIndex(Pullups,5,22,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,5,23,PullTable.length)];
 
                     //CALCULATE PUSHUPS SCORE
                     if(Pushups>0)
@@ -1107,7 +1113,7 @@ public class PFT {
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,49,50,50,51,52,53,54,55,56,57,57,58,59,60,61,62,63,63,64,65,66,67,68,69,70,70,71,72,73,74,75,76,77,77,78,79,80,81,82,83,83,84,85,86,87,88,89,90,90,91,92,93,94,95,96,97,97,98,99,100};
 
                     //calculate pullups
-                    PullupsScore=PullTable[getIndex(Pullups,5,22,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,5,23,PullTable.length)];
 
                     //CALCULATE PUSHUPS SCORE
                     if(Pushups>0)
@@ -1134,7 +1140,7 @@ public class PFT {
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,49,49,50,51,52,53,54,55,55,56,57,58,59,60,61,61,62,63,64,65,66,67,67,68,69,70,71,72,73,73,74,75,76,77,78,79,79,80,81,82,83,84,85,85,86,87,88,89,90,91,91,92,93,94,95,96,97,97,98,99,100};
 
                     //calculate pullups
-                    PullupsScore=PullTable[getIndex(Pullups,5,20,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,5,21,PullTable.length)];
 
 
                     //CALCULATE PUSHUPS SCORE
@@ -1166,7 +1172,7 @@ public class PFT {
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,48,49,50,51,52,53,54,54,55,56,57,58,59,59,60,61,62,63,64,65,65,66,67,68,69,70,70,71,72,73,74,75,75,76,77,78,79,80,81,81,82,83,84,85,86,86,87,88,89,90,91,92,92,93,94,95,96,97,97,98,99,100};
 
                     //calculate pullups
-                    PullupsScore=PullTable[getIndex(Pullups,5,19,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,5,20,PullTable.length)];
 
 
                     //CALCULATE PUSHUPS SCORE
@@ -1196,7 +1202,7 @@ public class PFT {
                     RunTable = new int[] {0,40,41,42,43,44,45,45,46,47,48,49,50,51,52,53,54,55,55,56,57,58,59,60,61,62,63,64,65,65,66,67,68,69,70,71,72,73,74,75,75,76,77,78,79,80,81,82,83,84,85,85,86,87,88,89,90,91,92,93,94,95,95,96,97,98,99,100};
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,48,49,50,51,52,53,53,54,55,56,57,58,58,59,60,61,62,63,63,64,65,66,67,68,68,69,70,71,72,73,73,74,75,76,77,78,78,79,80,81,82,83,83,84,85,86,87,88,88,89,90,91,92,93,93,94,95,96,97,98,98,99,100};
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,4,18,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,4,19,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1224,7 +1230,7 @@ public class PFT {
                     RunTable = new int[] {0,40,41,41,42,43,44,44,45,46,47,47,48,49,50,50,51,52,53,53,54,55,56,56,57,58,59,59,60,61,61,62,63,64,64,65,66,67,67,68,69,70,70,71,72,73,73,74,75,76,76,77,78,79,79,80,81,81,82,83,84,84,85,86,87,87,88,89,90,90,91,92,93,93,94,95,96,96,97,98,99,99,100};
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,48,49,50,51,52,53,53,54,55,56,57,58,58,59,60,61,62,63,63,64,65,66,67,68,68,69,70,71,72,73,73,74,75,76,77,78,78,79,80,81,82,83,83,84,85,86,87,88,88,89,90,91,92,93,93,94,95,96,97,98,98,99,100};
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,3,17,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,3,18,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1245,7 +1251,7 @@ public class PFT {
                     break;
             }}
 
-        else{
+        else{//female tables
             switch( ageGroup ){
                 case 0: //"17-20":  //****************17-20*************************
                     PullTable = new int[] {0,60,67,73,80,87,93,100};
@@ -1283,7 +1289,7 @@ public class PFT {
                     RunTable = new int[] {0,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100};
                     RowTable = new int[] {0,40,41,42,43,44,44,45,46,47,48,49,50,51,52,53,53,54,55,56,57,58,59,60,61,61,62,63,64,65,66,67,68,69,70,70,71,72,73,74,75,76,77,78,79,79,80,81,82,83,84,85,86,87,87,88,89,90,91,92,93,94,95,96,96,97,98,99,100};
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,1,9,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,3,11,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1305,13 +1311,13 @@ public class PFT {
 
                 case 2: //"26-30":
                     //FILL ARRAYS
-                    PullTable = new int[] {0,60,64,69,73,78,82,87,91,96,100};
+                    PullTable = new int[] {0,60,65,70,75,80,85,90,95,100};
                     PushTable = new int[] {0,40,41,42,43,44,45,46,47,48,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,63,64,65,66,67,68,69,70};
                     CrunchTable = new int[] {0,40,41,42,44,45,46,47,48,50,51,52,53,54,56,57,58,59,60,62,63,64,65,66,68,69,70,71,72,74,75,76,77,78,80,81,82,83,84,86,87,88,89,90,92,93,94,95,96,98,99,100};
                     RunTable = new int[] {0,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100};
                     RowTable = new int[]{0,40,41,42,43,44,44,45,46,47,48,49,50,51,51,52,53,54,55,56,57,58,59,59,60,61,62,63,64,65,66,66,67,68,69,70,71,72,73,74,74,75,76,77,78,79,80,81,81,82,83,84,85,86,87,88,89,89,90,91,92,93,94,95,96,96,97,98,99,100};
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,1,10,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,4,12,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1341,7 +1347,7 @@ public class PFT {
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,49,50,50,51,52,53,54,55,56,57,57,58,59,60,61,62,63,63,64,65,66,67,68,69,70,70,71,72,73,74,75,76,77,77,78,79,80,81,82,83,83,84,85,86,87,88,89,90,90,91,92,93,94,95,96,97,97,98,99,100};
 
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,1,9,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,3,11,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1370,7 +1376,7 @@ public class PFT {
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,49,49,50,51,52,53,54,55,55,56,57,58,59,60,61,61,62,63,64,65,66,67,67,68,69,70,71,72,73,73,74,75,76,77,78,79,79,80,81,82,83,84,85,85,86,87,88,89,90,91,91,92,93,94,95,96,97,97,98,99,100};
 
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,1,8,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,3,10,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1391,14 +1397,14 @@ public class PFT {
                     break;
                 case 5: //"41-45":
                     //FILL ARRAYS
-                    PullTable = new int[] {0,60,68,76,84,92,100};
+                    PullTable = new int[] {0,60,67, 73, 80, 87, 93, 100};
                     PushTable = new int[] {0,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70};
                     CrunchTable = new int[] {0,40,41,43,44,45,47,48,49,51,52,53,55,56,57,59,60,61,63,64,65,67,68,69,71,72,73,75,76,77,79,80,81,83,84,85,87,88,89,91,92,93,95,96,97,99,100};
                     RunTable = new int[] {0,41,42,43,44,45,45,46,47,48,49,50,51,52,53,54,55,55,56,57,58,59,60,61,62,63,64,65,65,66,67,68,69,70,71,72,73,74,75,75,76,77,78,79,8,81,82,83,84,85,85,86,87,88,89,90,91,92,93,94,95,95,96,97,98,99,100};
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,48,49,50,51,52,53,54,54,55,56,57,58,59,59,60,61,62,63,64,65,65,66,67,68,69,70,70,71,72,73,74,75,75,76,77,78,79,80,81,81,82,83,84,85,86,86,87,88,89,90,91,92,92,93,94,95,96,97,97,98,99,100};
 
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,1,6,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,2,8,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1420,14 +1426,14 @@ public class PFT {
 
                 case 6: //"46-50":
                     //FILL ARRAYS
-                    PullTable = new int[] {0,60,73,87,100};
+                    PullTable = new int[] {0,60,70, 80, 90,100};
                     PushTable = new int[] {0,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70};
                     CrunchTable = new int[] {0,40,41,42,44,45,46,47,48,50,51,52,53,54,56,57,58,59,60,62,63,64,65,66,68,69,70,71,72,74,75,76,77,78,80,81,82,83,84,86,87,88,89,90,92,93,94,95,96,98,99,100};
                     RunTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,49,50,50,51,52,53,54,55,56,57,57,58,59,60,61,62,63,63,64,65,66,67,68,69,70,70,71,72,73,74,75,76,77,77,78,79,80,81,82,83,83,84,85,86,87,88,89,90,90,91,92,93,94,95,96,97,97,98,99,100};
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,48,49,50,51,52,53,53,54,55,56,57,58,58,59,60,61,62,63,63,64,65,66,67,68,68,69,70,71,72,73,73,74,75,76,77,78,78,79,80,81,82,83,83,84,85,86,87,88,88,89,90,91,92,93,93,94,95,96,97,98,98,99,100};
 
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,1,4,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,2,6,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
@@ -1455,7 +1461,7 @@ public class PFT {
                     RunTable = new int[] {0,40,41,41,42,43,44,44,45,46,47,47,48,49,50,50,51,52,53,53,54,55,56,56,57,58,59,59,60,61,61,62,63,64,64,65,66,67,67,68,69,70,70,71,72,73,73,74,75,76,76,77,78,79,79,80,81,81,82,83,84,84,85,86,87,87,88,89,90,90,91,92,93,93,94,95,96,96,97,98,99,99,100};
                     RowTable = new int[] {0,40,41,42,43,43,44,45,46,47,48,48,49,50,51,52,53,53,54,55,56,57,58,58,59,60,61,62,63,63,64,65,66,67,68,68,69,70,71,72,73,73,74,75,76,77,78,78,79,80,81,82,83,83,84,85,86,87,88,88,89,90,91,92,93,93,94,95,96,97,98,98,99,100};
                     //CALCULATE PULLUPS Score
-                    PullupsScore=PullTable[getIndex(Pullups,1,3,PullTable.length)];
+                    PullupsScore=PullTable[getIndex(Pullups,2,4,PullTable.length)];
 
                     //CALCULATE PUSHUPS Score
                     if(Pushups>0)
