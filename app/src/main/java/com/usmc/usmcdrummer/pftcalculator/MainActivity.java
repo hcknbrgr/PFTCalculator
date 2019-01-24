@@ -26,10 +26,13 @@ Schedule of Releases:
 **** 1.0.0 - Write meaningful information on storefront
 **** 1.0.0 - *******RELEASE**********
 
-TODO 1.1.0 - Add title bar back in
+**** 1.1.0 - Add app bar back in
+TODO 1.1.0 - Change font color and center text in tool bar
 TODO 1.1.0 - Make tabs to change between calculator and what-if
-TODO 1.1.0 - Restructure PFT.java to be more usable and take up less space?
 TODO 1.1.0 - TEST AND RELEASE
+
+TODO 1.2.0 - Restructure PFT.java to be more usable and take up less space?
+TODO 1.2.0 - RELEASE
 
 TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
 TODO 2.0.0 - Add CFT Calculator
