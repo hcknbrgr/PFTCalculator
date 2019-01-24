@@ -1,56 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/holo_red_dark">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/holo_red_dark"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
 
     <ScrollView
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="top"
             android:background="@android:color/white"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text = "@string/app_title"
-                android:background="@android:color/holo_red_dark"
-                android:textColor="#FFD700"
-                android:textSize="20sp"
-                android:paddingTop="48dp"
-                android:gravity = "center"
-                android:paddingBottom="32dp"
-                />
+            android:gravity="top"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_marginStart="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/gender_label"
                     android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/male_label" />
+
+                    <RadioButton
+                        android:id="@+id/radio_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/female_label" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:text="@string/age_spinner_label"
-                    android:textSize="16sp"
-                    />
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
                 <Spinner
                     android:id="@+id/age_spinner"
@@ -62,139 +82,116 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-                <TextView
-                    android:layout_marginStart="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:text="@string/gender_label"
-                    android:textSize="16sp"
-                    />
-                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton android:id="@+id/radio_male"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/male_label"
-                        android:onClick="onRadioButtonClicked"/>
-                    <RadioButton android:id="@+id/radio_female"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/female_label"
-                        android:onClick="onRadioButtonClicked"/>
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginBottom="8dp"
                 android:focusable="true"
-                android:focusableInTouchMode="true">
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
                 <Spinner
                     android:id="@+id/pushpull_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="8dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
                     android:text=": "
-                    android:textSize="16sp"
-                    />
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/pullups_text_input"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:nextFocusDown="@+id/crunches_text_input"
-                    android:inputType="number"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/crunches_text_input" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:layout_marginStart="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
+                    android:layout_marginStart="16dp"
                     android:text="@string/crunches_label"
-                    android:textSize="16sp"
-                    />
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@id/crunches_text_input"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:nextFocusDown="@+id/runtime_minutes_text_input"
-                    android:inputType="number"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/runtime_minutes_text_input" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
                 <Spinner
                     android:id="@+id/runrow_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="8dp" />
+
                 <TextView
-                    android:layout_marginStart="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
+                    android:layout_marginStart="16dp"
                     android:text=": "
-                    android:textSize="16sp"
-                    />
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@id/runtime_minutes_text_input"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:nextFocusDown="@+id/runtime_seconds_text_input"
-                    android:inputType="number"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/runtime_seconds_text_input" />
+
                 <TextView
-                    android:layout_marginStart="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
+                    android:layout_marginStart="16dp"
                     android:text=":"
-                    android:textSize="16sp"
-                    />
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@id/runtime_seconds_text_input"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:inputType="number"
-                    />
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/elevation_label"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
+
                 <CheckBox
-                    android:layout_width="wrap_content"
-                    android:buttonTint ="@android:color/black"
-                    android:layout_height="wrap_content"
                     android:id="@+id/elevation_checkbox"
-                    android:onClick="onCheckboxClicked"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@android:color/black"
+                    android:onClick="onCheckboxClicked" />
 
             </LinearLayout>
 
@@ -202,21 +199,20 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:layout_gravity="center_horizontal"
-                android:text = "@string/calculate_button_text"
-                android:onClick = "calculateScore"
                 android:layout_marginBottom="8dp"
-                />
+                android:onClick="calculateScore"
+                android:text="@string/calculate_button_text"
+                android:textSize="16sp" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:layout_gravity="center_horizontal"
-                android:text = "@string/whatif_button_text"
-                android:onClick = "showWhatIf"
                 android:layout_marginBottom="8dp"
-                />
+                android:onClick="showWhatIf"
+                android:text="@string/whatif_button_text"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>

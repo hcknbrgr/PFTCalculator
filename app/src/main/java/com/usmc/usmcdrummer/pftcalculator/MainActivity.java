@@ -62,15 +62,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     int ageGroupPos= 0;
     boolean pullupsSelected = true;
     boolean runningSelected = true;
-
+    private Toolbar toolbar;
     boolean elevation = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        toolbar = findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("USMC PFT Calculator");
+
 
         //Generate Content in spinner and preselect Radio Button
         Spinner ageSpinner = findViewById(R.id.age_spinner);
