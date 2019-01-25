@@ -27,8 +27,10 @@ Schedule of Releases:
 **** 1.0.0 - *******RELEASE**********
 
 **** 1.1.0 - Add app bar back in
-TODO 1.1.0 - Change font color and center text in tool bar
+**** 1.1.0 - Change font color and center text in tool bar
+TODO 1.1.0 - Add shading in drop downs to be light gray
 TODO 1.1.0 - Make tabs to change between calculator and what-if
+TODO 1.1.0 - Add Bottom red background again
 TODO 1.1.0 - TEST AND RELEASE
 
 TODO 1.2.0 - Restructure PFT.java to be more usable and take up less space?
@@ -47,6 +49,7 @@ package com.usmc.usmcdrummer.pftcalculator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -74,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("USMC PFT Calculator");
+        getSupportActionBar().setTitle("");
+       // toolbar.setTitleTextColor(Color.parseColor("#FFD700"));
 
 
         //Generate Content in spinner and preselect Radio Button
