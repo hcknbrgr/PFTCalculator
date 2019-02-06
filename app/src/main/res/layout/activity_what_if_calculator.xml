@@ -23,38 +23,18 @@
                 android:background="@android:color/holo_red_dark"
                 android:textColor="#FFD700"
                 android:textSize="20sp"
-                android:paddingTop="48dp"
+                android:paddingTop="16dp"
                 android:gravity = "center"
-                android:paddingBottom="32dp"
+                android:paddingBottom="16dp"
                 />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="8dp">
 
-                <TextView
-                    android:layout_marginStart="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:text="@string/age_spinner_label"
-                    android:textSize="16sp"
-                    />
-
-                <Spinner
-                    android:id="@+id/age_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp">
                 <TextView
                     android:layout_marginStart="16dp"
@@ -85,6 +65,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_marginStart="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:text="@string/age_spinner_label"
+                    android:textSize="16sp"
+                    />
+
+                <Spinner
+                    android:id="@+id/age_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@layout/layout_spinnerbg"
+                    android:paddingEnd="24dp"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginBottom="8dp"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
@@ -92,7 +97,10 @@
                     android:id="@+id/pushpull_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="8dp"
+                    android:background="@layout/layout_spinnerbg"
+                    android:paddingEnd="24dp"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:nextFocusDown="@+id/crunches_text_input"
+                    android:ems="2"
                     android:inputType="number"/>
             </LinearLayout>
 
@@ -126,7 +135,8 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:nextFocusDown="@+id/runtime_minutes_text_input"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:ems="2"/>
             </LinearLayout>
 
             <LinearLayout
@@ -138,9 +148,12 @@
                     android:id="@+id/runrow_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="8dp"
+                    android:background="@layout/layout_spinnerbg"
+                    android:paddingEnd="24dp"
+                    />
                 <TextView
-                    android:layout_marginStart="16dp"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -152,9 +165,10 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:nextFocusDown="@+id/runtime_seconds_text_input"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:ems="2"/>
                 <TextView
-                    android:layout_marginStart="16dp"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -166,6 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:inputType="number"
+                    android:ems="2"
                     />
             </LinearLayout>
 
@@ -209,7 +224,10 @@
                 <Spinner
                     android:id="@+id/score_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@layout/layout_spinnerbg"
+                    android:paddingEnd="24dp"
+                    />
 
             </LinearLayout>
 

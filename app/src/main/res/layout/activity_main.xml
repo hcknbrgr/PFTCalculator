@@ -111,7 +111,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:nextFocusDown="@+id/crunches_text_input" />
+                    android:nextFocusDown="@+id/crunches_text_input"
+                    android:ems="2"/>
             </LinearLayout>
 
             <LinearLayout
@@ -133,7 +134,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:nextFocusDown="@+id/runtime_minutes_text_input" />
+                    android:nextFocusDown="@+id/runtime_minutes_text_input"
+                    android:ems="2"/>
             </LinearLayout>
 
             <LinearLayout
@@ -162,12 +164,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:nextFocusDown="@+id/runtime_seconds_text_input" />
+                    android:nextFocusDown="@+id/runtime_seconds_text_input"
+                    android:ems="2"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:text=":"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -176,7 +178,8 @@
                     android:id="@id/runtime_seconds_text_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:ems="2"/>
             </LinearLayout>
 
             <LinearLayout
