@@ -30,10 +30,9 @@ Schedule of Releases:
 **** 1.1.0 - Change font color and center text in tool bar
 **** 1.1.0 - Add shading in drop downs to be light gray, find light gray color, find out how to keep arrow on dropdown
 **** 1.1.0 - Add Bottom red background again
+TODO 1.1.0 - Change What-If to match original
+TODO 1.1.0 - TEST AND RELEASE I already changed Gradle for version number
 
-TODO 1.1.0 - TEST AND RELEASE
-
-TODO 1.1.1 - Change What-If to match original
 
 TODO 1.2.0 - Make tabs to change between calculator and what-if
 
