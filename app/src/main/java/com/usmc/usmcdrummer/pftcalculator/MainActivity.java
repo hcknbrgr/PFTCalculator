@@ -29,13 +29,17 @@ Schedule of Releases:
 **** 1.1.0 - Add app bar back in
 **** 1.1.0 - Change font color and center text in tool bar
 **** 1.1.0 - Add shading in drop downs to be light gray, find light gray color, find out how to keep arrow on dropdown
-TODO 1.1.0 - Make white go all the way to the bottom
-TODO 1.1.0 - Make tabs to change between calculator and what-if
-TODO 1.1.0 - Add Bottom red background again
+**** 1.1.0 - Add Bottom red background again
+
 TODO 1.1.0 - TEST AND RELEASE
 
-TODO 1.2.0 - Restructure PFT.java to be more usable and take up less space?
-TODO 1.2.0 - RELEASE
+TODO 1.1.1 - Change What-If to match original
+
+TODO 1.2.0 - Make tabs to change between calculator and what-if
+
+
+TODO 1.3.0 - Restructure PFT.java to be more usable and take up less space?
+TODO 1.3.0 - RELEASE
 
 TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
 TODO 2.0.0 - Add CFT Calculator
