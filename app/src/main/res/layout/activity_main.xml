@@ -76,7 +76,10 @@
                 <Spinner
                     android:id="@+id/age_spinner"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@layout/layout_spinnerbg"
+                    android:paddingEnd="24dp"
+                    android:spinnerMode="dropdown"/>
 
             </LinearLayout>
 
@@ -92,6 +95,8 @@
                     android:id="@+id/pushpull_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@layout/layout_spinnerbg"
+                    android:paddingEnd="24dp"
                     android:layout_marginStart="8dp" />
 
                 <TextView
@@ -141,12 +146,13 @@
                     android:id="@+id/runrow_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@layout/layout_spinnerbg"
+                    android:paddingEnd="24dp"
                     android:layout_marginStart="8dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:text=": "
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />

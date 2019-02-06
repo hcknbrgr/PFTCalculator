@@ -28,7 +28,8 @@ Schedule of Releases:
 
 **** 1.1.0 - Add app bar back in
 **** 1.1.0 - Change font color and center text in tool bar
-TODO 1.1.0 - Add shading in drop downs to be light gray
+**** 1.1.0 - Add shading in drop downs to be light gray, find light gray color, find out how to keep arrow on dropdown
+TODO 1.1.0 - Make white go all the way to the bottom
 TODO 1.1.0 - Make tabs to change between calculator and what-if
 TODO 1.1.0 - Add Bottom red background again
 TODO 1.1.0 - TEST AND RELEASE
