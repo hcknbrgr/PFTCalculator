@@ -34,13 +34,14 @@ Schedule of Releases:
 **** 1.1.0 - TEST AND RELEASE I already changed Gradle for version number
 
 
-TODO 1.2.0 - Make tabs to change between calculator and what-if
+**** 1.2.0 - Make tabs to change between calculator and what-if
 TODO 1.2.0 - Update Gradle Info
-TODO 1.2.0 - Update Screen Shots
 TODO 1.2.0 - Test and Release
 
 TODO 1.3.0 - Restructure PFT.java to be more usable and take up less space?
 TODO 1.3.0 - Add an option to get any score? -- add other to Spinner, create popup to insert user generated score
+TODO 1.3.0 - Update Screen Shots
+
 TODO 1.3.0 - RELEASE
 
 TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
