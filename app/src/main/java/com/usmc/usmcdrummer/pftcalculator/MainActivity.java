@@ -36,9 +36,11 @@ Schedule of Releases:
 
 TODO 1.2.0 - Make tabs to change between calculator and what-if
 TODO 1.2.0 - Update Gradle Info
+TODO 1.2.0 - Update Screen Shots
 TODO 1.2.0 - Test and Release
 
 TODO 1.3.0 - Restructure PFT.java to be more usable and take up less space?
+TODO 1.3.0 - Add an option to get any score? -- add other to Spinner, create popup to insert user generated score
 TODO 1.3.0 - RELEASE
 
 TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
@@ -50,173 +52,51 @@ TODO 4.0.0 - Add access to charts as data tables
  */
 
 package com.usmc.usmcdrummer.pftcalculator;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.Spinner;
+import android.view.Menu;
+import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    boolean gender = true;
-    String agegroup = "";
-    int ageGroupPos= 0;
-    boolean pullupsSelected = true;
-    boolean runningSelected = true;
-    private Toolbar toolbar;
-    boolean elevation = true;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.app_bar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-       // toolbar.setTitleTextColor(Color.parseColor("#FFD700"));
 
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("PFT Calculator"));
+        tabLayout.addTab(tabLayout.newTab().setText("What If"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        //Generate Content in spinner and preselect Radio Button
-        Spinner ageSpinner = findViewById(R.id.age_spinner);
-        ageSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.age_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ageSpinner.setAdapter(adapter);
-
-        Spinner pushpullSpinner = findViewById(R.id.pushpull_spinner);
-        pushpullSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> pushpulladapter = ArrayAdapter.createFromResource(this,
-                R.array.pushpull_array, android.R.layout.simple_spinner_item);
-        pushpulladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        pushpullSpinner.setAdapter(pushpulladapter);
-
-        Spinner runrowSpinner = findViewById(R.id.runrow_spinner);
-        runrowSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> runrowadapter = ArrayAdapter.createFromResource(this,
-                R.array.runrow_array, android.R.layout.simple_spinner_item);
-        runrowadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        runrowSpinner.setAdapter(runrowadapter);
-
-        RadioButton maleRadioButton = findViewById(R.id.radio_male);
-        maleRadioButton.setChecked(true);
-
-    }
-
-    private int retrieveValue(EditText edit){
-        int value =0;
-        String userInput = "";
-        userInput = edit.getText().toString();
-        try{
-            value = Integer.parseInt(userInput);
-        }catch(NumberFormatException ex){
-            value = 0;
-        }
-        return value;
-    }
-
-    public void showWhatIf(View view){
-        Intent intent = new Intent(this, WhatIfCalculator.class);
-        startActivity(intent);
-    }
-
-    public void calculateScore(View view){
-
-        int tempPull = 0;
-
-        int tempCrunch = 0;
-        int tempRunMin = 0;
-        int tempRunSec = 0;
-
-        tempPull = retrieveValue((EditText)findViewById(R.id.pullups_text_input));
-        tempCrunch = retrieveValue((EditText)findViewById(R.id.crunches_text_input));
-        tempRunMin = retrieveValue((EditText)findViewById(R.id.runtime_minutes_text_input));
-        tempRunSec = retrieveValue((EditText)findViewById(R.id.runtime_seconds_text_input));
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        String results;
-        if(tempRunSec >59) {
-            results = "Please enter a valid time for seconds (<60)";
-        }
-        else {
-            PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch, tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
-            results = pft.getResults(agegroup);
-        }
-
-        alertDialogBuilder.setMessage(results);
-        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        final ViewPager viewPager = findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(DialogInterface arg0, int arg1) {}
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
         });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        switch (parent.getId()) {
-            case R.id.age_spinner:
-                agegroup = parent.getItemAtPosition(pos).toString();
-                ageGroupPos = pos;
-                break;
-            case R.id.pushpull_spinner:
-                if (parent.getItemAtPosition(pos).toString().equals("Pullups"))
-                    pullupsSelected = true;
-                else pullupsSelected = false;
-                break;
-            case R.id.runrow_spinner:
-                if (parent.getItemAtPosition(pos).toString().equals("Row Time"))
-                    runningSelected = false;
-                else runningSelected = true;
-                break;
-        }
-
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    }
-
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radio_male:
-                if (checked)
-                    gender=true;
-                break;
-            case R.id.radio_female:
-                if (checked)
-                    // female
-                    gender=false;
-                break;
-        }
-    }
-
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        if(checked)
-            elevation=false;
-        else
-            elevation=true;
-
     }
 
 }

@@ -1,53 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    android:id="@+id/main_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary">
-        <TextView
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:text = "2019 USMC PFT Calculator"
-            android:layout_gravity = "center"
-            android:textSize = "20dp"
-            android:textColor = "#FFD700"
-            />
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:background="?attr/colorPrimary"
-        android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/tab_layout"/>
-
-</RelativeLayout>
-<!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark"
-    android:orientation="vertical">
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:contentDescription=".pftfrag">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,8 +22,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop = "16dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -76,6 +35,7 @@
                     android:textSize="16sp" />
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/radio_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -84,14 +44,12 @@
                         android:id="@+id/radio_male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked"
                         android:text="@string/male_label" />
 
                     <RadioButton
                         android:id="@+id/radio_female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked"
                         android:text="@string/female_label" />
                 </RadioGroup>
             </LinearLayout>
@@ -117,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:background="@layout/layout_spinnerbg"
                     android:paddingEnd="24dp"
-                    android:spinnerMode="dropdown"/>
+                    android:spinnerMode="dropdown" />
 
             </LinearLayout>
 
@@ -133,9 +91,9 @@
                     android:id="@+id/pushpull_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:background="@layout/layout_spinnerbg"
-                    android:paddingEnd="24dp"
-                    android:layout_marginStart="8dp" />
+                    android:paddingEnd="24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -148,9 +106,9 @@
                     android:id="@+id/pullups_text_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ems="2"
                     android:inputType="number"
-                    android:nextFocusDown="@+id/crunches_text_input"
-                    android:ems="2"/>
+                    android:nextFocusDown="@+id/crunches_text_input" />
             </LinearLayout>
 
             <LinearLayout
@@ -171,9 +129,9 @@
                     android:id="@id/crunches_text_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ems="2"
                     android:inputType="number"
-                    android:nextFocusDown="@+id/runtime_minutes_text_input"
-                    android:ems="2"/>
+                    android:nextFocusDown="@+id/runtime_minutes_text_input" />
             </LinearLayout>
 
             <LinearLayout
@@ -186,9 +144,9 @@
                     android:id="@+id/runrow_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:background="@layout/layout_spinnerbg"
-                    android:paddingEnd="24dp"
-                    android:layout_marginStart="8dp" />
+                    android:paddingEnd="24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -201,9 +159,9 @@
                     android:id="@id/runtime_minutes_text_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ems="2"
                     android:inputType="number"
-                    android:nextFocusDown="@+id/runtime_seconds_text_input"
-                    android:ems="2"/>
+                    android:nextFocusDown="@+id/runtime_seconds_text_input" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -216,8 +174,8 @@
                     android:id="@id/runtime_seconds_text_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="2"/>
+                    android:ems="2"
+                    android:inputType="number" />
             </LinearLayout>
 
             <LinearLayout
@@ -238,8 +196,7 @@
                     android:id="@+id/elevation_checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@android:color/black"
-                    android:onClick="onCheckboxClicked" />
+                    android:buttonTint="@android:color/black" />
 
             </LinearLayout>
 
@@ -249,20 +206,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                android:onClick="calculateScore"
+                android:id="@+id/calculate_button"
                 android:text="@string/calculate_button_text"
-                android:textSize="16sp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
-                android:onClick="showWhatIf"
-                android:text="@string/whatif_button_text"
                 android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
--->
