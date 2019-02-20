@@ -35,8 +35,8 @@ Schedule of Releases:
 
 
 **** 1.2.0 - Make tabs to change between calculator and what-if
-TODO 1.2.0 - Update Gradle Info
-TODO 1.2.0 - Test and Release
+**** 1.2.0 - Update Gradle Info
+**** 1.2.0 - Test and Release
 
 TODO 1.3.0 - Restructure PFT.java to be more usable and take up less space?
 TODO 1.3.0 - Add an option to get any score? -- add other to Spinner, create popup to insert user generated score
