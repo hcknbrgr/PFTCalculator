@@ -34,10 +34,10 @@
                     android:textSize="16sp" />
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/radio_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/radio_gender">
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/radio_male"
@@ -49,8 +49,11 @@
                         android:id="@+id/radio_female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/female_label" />
+                        android:text="@string/female_label"
+                        android:layout_marginEnd="48dp"/>
                 </RadioGroup>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -197,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@android:color/black"
-                    android:onClick="onCheckboxClicked" />
+                     />
 
             </LinearLayout>
 
@@ -224,17 +227,26 @@
                     android:paddingEnd="24dp" />
 
             </LinearLayout>
-
-
-            <Button
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal">
+
+                <Button
                 android:id="@+id/calculate_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/calculate_button_text"
                 android:textSize="16sp" />
 
+            <Button
+                android:id="@+id/howto_button"
+                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:text="?"
+                android:textSize="16sp"/>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

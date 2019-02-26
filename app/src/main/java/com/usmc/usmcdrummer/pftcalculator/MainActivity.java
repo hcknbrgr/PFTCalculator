@@ -38,10 +38,21 @@ Schedule of Releases:
 **** 1.2.0 - Update Gradle Info
 **** 1.2.0 - Test and Release
 
-TODO 1.3.0 - Restructure PFT.java to be more usable and take up less space?
+**** 1.2.1 - Add how to button in whatif calculator
+**** 1.2.1 - Update Gradle
+TODO 1.2.1 - RELEASE
+
+TODO 1.3.0 - Restructure PFT.java as a table for each event? Check to see if tables can be created for both what if and pft scores?
+TODO - Make Pullup Table
+TODO - Make Pushups Table
+TODO - Make Crunches Table
+TODO - Make Row Table
+TODO - Make Run Table
+TODO - Implement tables
+
 TODO 1.3.0 - Add an option to get any score? -- add other to Spinner, create popup to insert user generated score
 TODO 1.3.0 - Update Screen Shots
-
+TODO 1.3.0 - Update Gradle
 TODO 1.3.0 - RELEASE
 
 TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
@@ -49,7 +60,7 @@ TODO 2.0.0 - Add CFT Calculator
 
 TODO 3.0.0 - Add Body Fat Calculator
 
-TODO 4.0.0 - Add access to charts as data tables
+TODO 4.0.0 - Add access to charts -- TableLayout
  */
 
 package com.usmc.usmcdrummer.pftcalculator;
@@ -58,9 +69,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-
 
 public class MainActivity extends AppCompatActivity {
 

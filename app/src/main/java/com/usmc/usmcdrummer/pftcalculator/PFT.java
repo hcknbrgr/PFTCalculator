@@ -1019,6 +1019,8 @@ public class PFT {
         int[] RunTable;
         int[] RowTable;
 
+
+
         if(Gender){//male tables
             switch( ageGroup ){
                 case 0:  //****************17-20*************************

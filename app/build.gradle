@@ -4,10 +4,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.usmc.usmcdrummer.pftcalculator"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 27
-        versionCode 8
-        versionName "1.2.0"
+        versionCode 9
+        versionName "1.2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

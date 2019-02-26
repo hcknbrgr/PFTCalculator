@@ -77,6 +77,14 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
+        Button howToButton= view.findViewById(R.id.howto_button);
+        howToButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHowTo(view);
+            }
+        });
+
         final RadioGroup radioGroup = view.findViewById(R.id.radio_gender);
 
         radioGroup.setOnCheckedChangeListener(
@@ -174,6 +182,23 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         }
 
         alertDialogBuilder.setMessage(results);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {}
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public void showHowTo(View view){
+
+        SpannableStringBuilder message = new SpannableStringBuilder();
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
+        message.append("Select what score you wish to achieve and leave one, two, or all three events empty.  \n\n" +
+                "The calculator will tell you what you need to achieve to get the desired score.");
+        alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {}
