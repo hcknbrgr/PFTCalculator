@@ -76,16 +76,13 @@ public class PFT {
         makeScores();
     }
 
-    public SpannableStringBuilder getWhatIfResults(int desiredClass)
+    public SpannableStringBuilder getWhatIfResults(int desiredClass, int desScore)
     {
         int whatIfTotal = TotalScore;
         int startLength;
         SpannableStringBuilder resultsString = new SpannableStringBuilder();
-        StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
 
-
-
-        int desiredScore = classScore(desiredClass);
+        int desiredScore = desScore;
         int remainingScores = scoresRemaining();
         if (remainingScores == 0){
             resultsString.append("All Scores Entered. Score: " + Integer.toString(TotalScore));
@@ -212,6 +209,15 @@ public class PFT {
         return resultsString;
     }
 
+    private int setClass(int score)
+    {
+        if(score>=235)
+            return 0;
+        else if(score>=200)
+            return 1;
+        else return 2;
+
+    }
     private int[] getPullIndex(int score){
 
         //returns 0: repetitions required

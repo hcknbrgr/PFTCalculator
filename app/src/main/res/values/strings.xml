@@ -37,6 +37,7 @@
         <item>First Class (235+)</item>
         <item>Second Class (200–234)</item>
         <item>Third Class (150–199)</item>
+        <item>Enter Your Own Score:</item>
     </string-array>
 
 </resources>

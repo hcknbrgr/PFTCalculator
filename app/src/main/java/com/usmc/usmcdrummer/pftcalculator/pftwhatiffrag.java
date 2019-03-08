@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
     boolean pullupsSelected = true;
     boolean runningSelected = true;
     int scoreClass = 0;
+    int desiredScore = 0;
     boolean elevation = true;
 
     public pftwhatiffrag() {
@@ -136,12 +138,56 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                 else runningSelected = true;
                 break;
             case R.id.score_spinner:
-                scoreClass = pos; //0=first, 1=second, 2-third
+                scoreClass = pos; //0=first, 1=second, 2-third, 3-user defined
+                if(scoreClass == 0)
+                    desiredScore=235;
+                else if(scoreClass == 1)
+                    desiredScore=200;
+                else if(scoreClass ==2)
+                    desiredScore = 150;
+                else if (scoreClass ==3) {
+                    setUserDefinedScore();
+                }
                 break;
         }
     }
 
+    private void setUserDefinedScore()
+    {
+        LayoutInflater alertInflater = LayoutInflater.from(this.getActivity());
+        final View inflator = alertInflater.inflate(R.layout.userdefinedscorelayout, null);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
+        alertDialogBuilder.setView(inflator);
+        final EditText editTextScore = (EditText) inflator.findViewById(R.id.score_text_input);
 
+        alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //https://stackoverflow.com/questions/6626006/android-custom-dialog-cant-get-text-from-edittext/14091604
+
+                desiredScore = retrieveValue(editTextScore);
+                //todo change text to tell user to input between 150-300, if outside those parameters, new alert saying wrong.
+                //todo update spinner to reflect change by adding and setting a new line to the score - should allow user to click on new score when another new score is entered, delete previous entries
+                setScoreClass(desiredScore);
+
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int whichButton) {
+        }
+    });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+    }
+    private void setScoreClass(int score)
+    {
+        if (score >= 235)
+            scoreClass =0;
+        else if (score >=200)
+            scoreClass=1;
+        else scoreClass = 2;
+    }
     public void onNothingSelected(AdapterView<?> parent) {
             // Another interface callback
     }
@@ -178,7 +224,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         }
         else {
             PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch, tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
-            results.append(pft.getWhatIfResults(scoreClass));
+            results.append(pft.getWhatIfResults(scoreClass,desiredScore));
         }
 
         alertDialogBuilder.setMessage(results);
