@@ -43,6 +43,7 @@ Schedule of Releases:
 **** 1.2.1 - RELEASE
 
 TODO 1.3.0 - Add an option to get any score? -- add other to Spinner, create popup to insert user generated score
+TODO 1.3.0 - Fix 0 but still passing bug in whatif
 TODO 1.3.0 - Update Screen Shots
 TODO 1.3.0 - Update Gradle
 TODO 1.3.0 - RELEASE

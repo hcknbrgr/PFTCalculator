@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.service.autofill.Validator;
 import android.support.v4.app.Fragment;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,6 +22,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelectedListener {
     boolean gender = true;
@@ -30,6 +37,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
     int scoreClass = 0;
     int desiredScore = 0;
     boolean elevation = true;
+
 
     public pftwhatiffrag() {
         // Required empty public constructor
@@ -65,6 +73,8 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         scoreSpinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> scoreadapter = ArrayAdapter.createFromResource(this.getActivity(),
                 R.array.score_array, android.R.layout.simple_spinner_item);
+        //todo https://android--code.blogspot.com/2015/08/android-listview-add-items.html
+        //pull the R.Array.score_array, add the user input, refresh the setlist somehow
         scoreadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         scoreSpinner.setAdapter(scoreadapter);
 
@@ -158,16 +168,22 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         final View inflator = alertInflater.inflate(R.layout.userdefinedscorelayout, null);
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
         alertDialogBuilder.setView(inflator);
-        final EditText editTextScore = (EditText) inflator.findViewById(R.id.score_text_input);
 
+        final EditText editTextScore = (EditText) inflator.findViewById(R.id.score_text_input);
         alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //https://stackoverflow.com/questions/6626006/android-custom-dialog-cant-get-text-from-edittext/14091604
 
                 desiredScore = retrieveValue(editTextScore);
-                //todo change text to tell user to input between 150-300, if outside those parameters, new alert saying wrong.
                 //todo update spinner to reflect change by adding and setting a new line to the score - should allow user to click on new score when another new score is entered, delete previous entries
-                setScoreClass(desiredScore);
+                if ((desiredScore <150) ||(desiredScore>300))
+                {
+                    Toast.makeText(getActivity(), "Please enter a score between 150 and 300!", Toast.LENGTH_LONG).show();
+                    setUserDefinedScore();
+                }
+                else {
+                    setScoreClass(desiredScore);
+                }
 
             }
         });
@@ -177,9 +193,12 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
     });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         alertDialog.show();
 
     }
+
     private void setScoreClass(int score)
     {
         if (score >= 235)
