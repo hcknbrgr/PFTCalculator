@@ -37,7 +37,9 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
     int scoreClass = 0;
     int desiredScore = 0;
     boolean elevation = true;
-
+    ArrayList<String> scoreArrayList = new ArrayList<>();
+    ArrayAdapter<String> scoreAdapter;
+    Spinner scoreSpinner;
 
     public pftwhatiffrag() {
         // Required empty public constructor
@@ -48,6 +50,9 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
 
         final View view = inflater.inflate(R.layout.fragment_pftwhatiffrag, container, false);
         //Generate Content in spinner and preselect Radio Button
+
+
+
         Spinner ageSpinner = view.findViewById(R.id.age_spinner);
         ageSpinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
@@ -69,14 +74,15 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         runrowadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         runrowSpinner.setAdapter(runrowadapter);
 
-        Spinner scoreSpinner = view.findViewById(R.id.score_spinner);
+        scoreSpinner = view.findViewById(R.id.score_spinner);
+        scoreAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, scoreArrayList);
+        scoreAdapter.add("First Class (235+)");
+        scoreAdapter.add("Second Class (200–234)");
+        scoreAdapter.add("Third Class (150–199)");
+        scoreAdapter.add("Select your own score (150-300)");
+        scoreSpinner.setAdapter(scoreAdapter);
         scoreSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> scoreadapter = ArrayAdapter.createFromResource(this.getActivity(),
-                R.array.score_array, android.R.layout.simple_spinner_item);
-        //todo https://android--code.blogspot.com/2015/08/android-listview-add-items.html
-        //pull the R.Array.score_array, add the user input, refresh the setlist somehow
-        scoreadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        scoreSpinner.setAdapter(scoreadapter);
+
 
         RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
         maleRadioButton.setChecked(true);
@@ -155,8 +161,11 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                     desiredScore=200;
                 else if(scoreClass ==2)
                     desiredScore = 150;
-                else if (scoreClass ==3) {
+                else if (scoreClass ==3)
                     setUserDefinedScore();
+                else {
+                    desiredScore = Integer.parseInt(scoreSpinner.getItemAtPosition(4).toString());
+                    setScoreClass(desiredScore);
                 }
                 break;
         }
@@ -172,10 +181,9 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         final EditText editTextScore = (EditText) inflator.findViewById(R.id.score_text_input);
         alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                //https://stackoverflow.com/questions/6626006/android-custom-dialog-cant-get-text-from-edittext/14091604
-
+                final String temp = Integer.toString(desiredScore);
                 desiredScore = retrieveValue(editTextScore);
-                //todo update spinner to reflect change by adding and setting a new line to the score - should allow user to click on new score when another new score is entered, delete previous entries
+
                 if ((desiredScore <150) ||(desiredScore>300))
                 {
                     Toast.makeText(getActivity(), "Please enter a score between 150 and 300!", Toast.LENGTH_LONG).show();
@@ -183,6 +191,11 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                 }
                 else {
                     setScoreClass(desiredScore);
+                    if(scoreSpinner.getCount()==5)
+                        scoreAdapter.remove(temp);
+                    scoreAdapter.add(Integer.toString(desiredScore));
+                    scoreSpinner.setSelection(5);
+                    scoreAdapter.notifyDataSetChanged();
                 }
 
             }
