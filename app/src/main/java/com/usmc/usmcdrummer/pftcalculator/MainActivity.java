@@ -42,14 +42,17 @@ Schedule of Releases:
 **** 1.2.1 - Update Gradle
 **** 1.2.1 - RELEASE
 
-TODO 1.3.0 - Add an option to get any score? -- add other to Spinner, create popup to insert user generated score
-TODO 1.3.0 - Fix 0 but still passing bug in whatif
+**** 1.3.0 - Add an option to get any score? -- add other to Spinner, create popup to insert user generated score
+**** 1.3.0 - Fix 0 for event but still passing bug in whatif (mandatory pass)
+TODO 1.3.0 - Add obtained score in whatif, if goal is 3rd or 2nd class and obtained is higher than requested
 TODO 1.3.0 - Update Screen Shots
 TODO 1.3.0 - Update Gradle
 TODO 1.3.0 - RELEASE
 
 TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
 TODO 2.0.0 - Add CFT Calculator
+
+TODO 2.0.1 - Automatically go to seconds from minutes after 2 digits have been entered?
 
 TODO 3.0.0 - Add Body Fat Calculator
 
