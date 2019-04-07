@@ -31,7 +31,7 @@ import java.util.List;
 public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelectedListener {
     boolean gender = true;
     String agegroup = "";
-    int ageGroupPos= 0;
+    int ageGroupPos = 0;
     boolean pullupsSelected = true;
     boolean runningSelected = true;
     int scoreClass = 0;
@@ -44,13 +44,13 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
     public pftwhatiffrag() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_pftwhatiffrag, container, false);
         //Generate Content in spinner and preselect Radio Button
-
 
 
         Spinner ageSpinner = view.findViewById(R.id.age_spinner);
@@ -95,7 +95,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
-        Button howToButton= view.findViewById(R.id.howto_button);
+        Button howToButton = view.findViewById(R.id.howto_button);
         howToButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,19 +109,19 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                 new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        switch(checkedId) {
+                        switch (checkedId) {
                             case R.id.radio_male: //Male
-                                gender=true;
+                                gender = true;
                                 break;
                             case R.id.radio_female: //Female
-                                gender=false;
+                                gender = false;
                                 break;
                             default:
                                 break;
                         }
                     }
                 });
-        CheckBox checkboxvariable=view.findViewById(R.id.elevation_checkbox);
+        CheckBox checkboxvariable = view.findViewById(R.id.elevation_checkbox);
 
         checkboxvariable.setOnCheckedChangeListener(
                 new CheckBox.OnCheckedChangeListener() {
@@ -155,13 +155,13 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                 break;
             case R.id.score_spinner:
                 scoreClass = pos; //0=first, 1=second, 2-third, 3-user defined
-                if(scoreClass == 0)
-                    desiredScore=235;
-                else if(scoreClass == 1)
-                    desiredScore=200;
-                else if(scoreClass ==2)
+                if (scoreClass == 0)
+                    desiredScore = 235;
+                else if (scoreClass == 1)
+                    desiredScore = 200;
+                else if (scoreClass == 2)
                     desiredScore = 150;
-                else if (scoreClass ==3)
+                else if (scoreClass == 3)
                     setUserDefinedScore();
                 else {
                     desiredScore = Integer.parseInt(scoreSpinner.getItemAtPosition(4).toString());
@@ -171,8 +171,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         }
     }
 
-    private void setUserDefinedScore()
-    {
+    private void setUserDefinedScore() {
         LayoutInflater alertInflater = LayoutInflater.from(this.getActivity());
         final View inflator = alertInflater.inflate(R.layout.userdefinedscorelayout, null);
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
@@ -184,14 +183,12 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                 final String temp = Integer.toString(desiredScore);
                 desiredScore = retrieveValue(editTextScore);
 
-                if ((desiredScore <150) ||(desiredScore>300))
-                {
+                if ((desiredScore < 150) || (desiredScore > 300)) {
                     Toast.makeText(getActivity(), "Please enter a score between 150 and 300!", Toast.LENGTH_LONG).show();
                     setUserDefinedScore();
-                }
-                else {
+                } else {
                     setScoreClass(desiredScore);
-                    if(scoreSpinner.getCount()==5)
+                    if (scoreSpinner.getCount() == 5)
                         scoreAdapter.remove(temp);
                     scoreAdapter.add(Integer.toString(desiredScore));
                     scoreSpinner.setSelection(5);
@@ -201,41 +198,42 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int whichButton) {
-        }
-    });
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         alertDialog.show();
 
     }
 
-    private void setScoreClass(int score)
-    {
+    private void setScoreClass(int score) {
         if (score >= 235)
-            scoreClass =0;
-        else if (score >=200)
-            scoreClass=1;
+            scoreClass = 0;
+        else if (score >= 200)
+            scoreClass = 1;
         else scoreClass = 2;
     }
+
     public void onNothingSelected(AdapterView<?> parent) {
-            // Another interface callback
+        // Another interface callback
     }
 
-    private int retrieveValue(EditText edit){
-        int value =0;
+    private int retrieveValue(EditText edit) {
+        int value = 0;
         String userInput = "";
         userInput = edit.getText().toString();
-        try{
+        try {
             value = Integer.parseInt(userInput);
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             value = 0;
         }
         return value;
     }
-    public void calculateScore(View view){
+
+    public void calculateScore(View view) {
         int tempPull = 0;
 
         int tempCrunch = 0;
@@ -244,32 +242,32 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         SpannableStringBuilder results = new SpannableStringBuilder();
 
 
-        tempPull = retrieveValue((EditText)view.findViewById(R.id.pullups_text_input));
-        tempCrunch = retrieveValue((EditText)view.findViewById(R.id.crunches_text_input));
-        tempRunMin = retrieveValue((EditText)view.findViewById(R.id.runtime_minutes_text_input));
-        tempRunSec = retrieveValue((EditText)view.findViewById(R.id.runtime_seconds_text_input));
+        tempPull = retrieveValue((EditText) view.findViewById(R.id.pullups_text_input));
+        tempCrunch = retrieveValue((EditText) view.findViewById(R.id.crunches_text_input));
+        tempRunMin = retrieveValue((EditText) view.findViewById(R.id.runtime_minutes_text_input));
+        tempRunSec = retrieveValue((EditText) view.findViewById(R.id.runtime_seconds_text_input));
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
 
-        if(tempRunSec >59) {
+        if (tempRunSec > 59) {
             results.append("Please enter a valid time for seconds (<60)");
-        }
-        else {
+        } else {
             PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch, tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
-            results.append(pft.getWhatIfResults(scoreClass,desiredScore));
+            results.append(pft.getWhatIfResults(scoreClass, desiredScore));
         }
 
         alertDialogBuilder.setMessage(results);
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface arg0, int arg1) {}
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
         });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 
-    public void showHowTo(View view){
+    public void showHowTo(View view) {
 
         SpannableStringBuilder message = new SpannableStringBuilder();
 
@@ -279,7 +277,8 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         alertDialogBuilder.setMessage(message);
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface arg0, int arg1) {}
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
         });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
