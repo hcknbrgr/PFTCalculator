@@ -49,6 +49,9 @@ Schedule of Releases:
 **** 1.3.0 - RELEASE
 
 TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
+TODO - FIGURE OUT ICONS AT THE BOTTOM
+TODO - GET TABS BACK AT TOP
+TODO - GET PFT CALCULATOR WORKING AGAIN
 TODO 2.0.0 - Update the APP Title in the Manifest
 TODO 2.0.0 - Add CFT Calculator
 TODO 2.0.0 - Update Screen Shots
