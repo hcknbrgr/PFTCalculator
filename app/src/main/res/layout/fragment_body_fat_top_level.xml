@@ -9,7 +9,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Body Fat Top Level, BFC coming soon"/>
+        android:id="@+id/coming_soon"
+        android:gravity="center_horizontal"
+        android:text="@string/menu_coming_soon"/>
 
 
 </FrameLayout>

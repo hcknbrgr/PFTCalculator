@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item android:id="@+id/action_PFT"
             android:icon="@drawable/ic_directions_run_black_24dp"
-            android:title="PFT Calc"/>
+            android:title="@string/PFT_Nav"/>
 
         <item android:id="@+id/action_CFT"
             android:icon="@drawable/ic_fitness_center_black_24dp"
-            android:title="CFT" />
+            android:title="@string/CFT_Nav" />
 
         <item android:id="@+id/action_BF"
             android:icon="@drawable/ic_accessibility_black_24dp"
-            android:title="Body Fat Calc" />
+            android:title="@string/BF_Nav" />
 </menu>

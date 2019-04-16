@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PFT Calculator WHATIF</string>
+    <string name="app_name">USMC Physical Fitness Calculator</string>
     <string name="app_title">USMC PFT Calculator</string>
     <string name="whatif_title">What If Calculator</string>
     <string name="score_spinner_label">Desired Score: </string>
@@ -12,9 +12,13 @@
     <string name="run_label">Run Time: </string>
     <string name="elevation_label">Elevation Adjustment: </string>
     <string name="calculate_button_text">CALCULATE</string>
-    <string name="menu_PFT">PFT Calc</string>
+    <string name="menu_PFT">PFT!!!!</string>
     <string name="menu_PFTWhatIf">What If Calc</string>
-    <string name="menu_coming_soon">Coming Soon!</string>
+
+    <string name="PFT_Nav">PFT</string>
+    <string name="CFT_Nav">CFT</string>
+    <string name="BF_Nav">Body Fat</string>
+    <string name="menu_coming_soon">\n\n\nCOMING SOON! If you have any requests to be added to the app, please email me at: <a href="mailto:daniel.hackenberger@gmail.com?subject=USMC PFT Calculator">daniel.hackenberger@gmail.com</a></string>
     <string-array name="age_array">
         <item>17–20</item>
         <item>21–25</item>

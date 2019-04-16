@@ -48,19 +48,16 @@ Schedule of Releases:
 **** 1.3.0 - Update Gradle
 **** 1.3.0 - RELEASE
 
-TODO 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
-TODO - FIGURE OUT ICONS AT THE BOTTOM
-TODO - GET TABS BACK AT TOP
-TODO - GET PFT CALCULATOR WORKING AGAIN
-TODO 2.0.0 - Update the APP Title in the Manifest
-TODO 2.0.0 - Add CFT Calculator
-TODO 2.0.0 - Update Screen Shots
-TODO 2.0.0 - Update Gradle
+**** 2.0.0 - Make a bottom menu bar to switch activities to include CFT and coming soon Body Fat
+**** 2.0.0 - Update the APP Title in the Manifest
+**** 2.0.0 - Add CFT Calculator
+**** 2.0.0 - Update Screen Shots
+**** 2.0.0 - Update Gradle
 TODO 2.0.0 - RELEASE!
 
-TODO 2.0.1 - Automatically go to seconds from minutes after 2 digits have been entered?
+TODO 2.1.0 - Add Body Fat Calculator
 
-TODO 3.0.0 - Add Body Fat Calculator
+TODO 3.0.0 - Add CFT Whatif
 
 TODO 4.0.0 - Add access to charts -- TableLayout
  */
@@ -84,39 +81,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("PFT Calculator"));
-        tabLayout.addTab(tabLayout.newTab().setText("What If"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        }); */
 
         // Retrieve a reference to the BottomNavigationView and listen for click events.
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.getMenu().findItem(R.id.action_PFT).setTitle("PFT");
+        bottomNav.getMenu().findItem(R.id.action_BF).setTitle("Body Fat");
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_host, new pft_top_level_fragment())

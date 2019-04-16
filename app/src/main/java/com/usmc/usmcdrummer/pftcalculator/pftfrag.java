@@ -176,27 +176,7 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
 
     }
 
-/*    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        switch (parent.getId()) {
-            case R.id.age_spinner:
-                agegroup = parent.getItemAtPosition(pos).toString();
-                ageGroupPos = pos;
-                break;
-            case R.id.pushpull_spinner:
-                if (parent.getItemAtPosition(pos).toString().equals("Pullups"))
-                    pullupsSelected = true;
-                else pullupsSelected = false;
-                break;
-            case R.id.runrow_spinner:
-                if (parent.getItemAtPosition(pos).toString().equals("Row Time"))
-                    runningSelected = false;
-                else runningSelected = true;
-                break;
-        }
 
-    }*/
 
 
 }
