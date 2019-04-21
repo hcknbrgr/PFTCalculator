@@ -76,7 +76,7 @@ public class cft_top_level_fragment extends Fragment implements AdapterView.OnIt
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculateScore(view);//MIGHT CAUSE AN ISSUE, CHECK THE VIEW SENDT
+                calculateScore(view);
             }
         });
 
