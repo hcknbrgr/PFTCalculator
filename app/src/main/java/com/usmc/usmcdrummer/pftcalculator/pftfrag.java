@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +64,26 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
 
         RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
         maleRadioButton.setChecked(true);
+
+        final EditText runMinEditText = view.findViewById(R.id.runtime_minutes_text_input);
+        final EditText runSecEditText = view.findViewById(R.id.runtime_seconds_text_input);
+        runMinEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(runMinEditText.getText().toString().length()==2)
+                    runSecEditText.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         final RadioGroup radioGroup = view.findViewById(R.id.radio_gender);
 

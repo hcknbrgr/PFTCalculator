@@ -55,13 +55,18 @@ Schedule of Releases:
 **** 2.0.0 - Update Gradle
 **** 2.0.0 - RELEASE!
 
-TODO 2.1.0 - Add Body Fat Calculator
-TODO 2.1.0 - Update Gradle
-TODO 2.1.0 - Release
+**** 2.1.0 - Add Body Fat Calculator
+**** 2.1.0 - Update Gradle
+**** 2.1.0 - Release
+
+todo 2.2.0 - Test out autoswitch to next field for minutes to seconds
+todo 2.2.0 - see if the bottom nav can not pop up during text input
+todo 2.2.0 - update gradle
+todo 2.2.0 - release
 
 TODO 3.0.0 - Add CFT Whatif
 
-TODO 4.0.0 - Add access to charts -- TableLayout
+TODO 4.0.0 - Add access to charts -- TableLayout?
  */
 
 package com.usmc.usmcdrummer.pftcalculator;

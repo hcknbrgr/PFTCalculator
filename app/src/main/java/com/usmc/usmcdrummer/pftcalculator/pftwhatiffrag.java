@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.service.autofill.Validator;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,6 +102,27 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
                 showHowTo(view);
+            }
+        });
+
+        final EditText runMinET = view.findViewById(R.id.runtime_minutes_text_input);
+        final EditText runSecET = view.findViewById(R.id.runtime_seconds_text_input);
+        runMinET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //todo add the check for the run time minutes here, then do the CFT for the run times for 1 length
+                if(runMinET.getText().toString().length()==2)
+                    runSecET.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 

@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +82,46 @@ public class cft_top_level_fragment extends Fragment implements AdapterView.OnIt
             }
         });
 
+        final EditText MTCMinET = view.findViewById(R.id.MTC_minutes_text_input);
+        final EditText MTCSecET = view.findViewById(R.id.MTC_seconds_text_input);
+        final EditText MUFMinET = view.findViewById(R.id.MUF_minutes_text_input);
+        final EditText MUFSecET = view.findViewById(R.id.MUF_seconds_text_input);
+
+        MTCMinET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(MTCMinET.getText().toString().length()==1)
+                    MTCSecET.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        MUFMinET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(MUFMinET.getText().toString().length()==1)
+                    MUFSecET.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         return view;
     }
