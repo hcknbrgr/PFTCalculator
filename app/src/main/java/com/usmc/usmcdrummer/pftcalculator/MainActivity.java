@@ -53,9 +53,11 @@ Schedule of Releases:
 **** 2.0.0 - Add CFT Calculator
 **** 2.0.0 - Update Screen Shots
 **** 2.0.0 - Update Gradle
-TODO 2.0.0 - RELEASE!
+**** 2.0.0 - RELEASE!
 
 TODO 2.1.0 - Add Body Fat Calculator
+TODO 2.1.0 - Update Gradle
+TODO 2.1.0 - Release
 
 TODO 3.0.0 - Add CFT Whatif
 

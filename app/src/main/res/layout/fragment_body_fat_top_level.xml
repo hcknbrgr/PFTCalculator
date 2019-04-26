@@ -81,7 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="2"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:nextFocusDown="@+id/neck_input" />
 
                     </LinearLayout>
@@ -107,7 +107,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="2"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:nextFocusDown="@+id/abs_input" />
 
                     </LinearLayout>
@@ -122,7 +122,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="Abdomen/Waist: "
+                            android:id="@+id/abs_text"
+                            android:text="Abdomen: "
                             android:textColor="@android:color/black"
                             android:textSize="16sp" />
 
@@ -131,7 +132,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="2"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:nextFocusDown="@+id/hip_input" />
                     </LinearLayout>
 
@@ -139,13 +140,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/hips_layout"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="Hips (Females only): "
+                            android:text="Hips: "
                             android:textColor="@android:color/black"
                             android:textSize="16sp" />
 
@@ -154,7 +157,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="2"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:nextFocusDown="@+id/weight_input" />
 
                     </LinearLayout>

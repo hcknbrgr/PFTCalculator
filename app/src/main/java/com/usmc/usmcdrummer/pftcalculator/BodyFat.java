@@ -2,14 +2,16 @@ package com.usmc.usmcdrummer.pftcalculator;
 
 public class BodyFat {
     boolean gender;
-    int height;
-    int neck;
-    int abs;
-    int hips;
+    double height;
+    double neck;
+    double abs;
+    double hips;
     int weight;
-    int CValue;
+    double CValue;
+    String results;
+    boolean goodResults=false;
 
-    public BodyFat (int Height, int Neck, int Abs, int Hips, int Weight, boolean Gender){
+    public BodyFat (double Height, double Neck, double Abs, double Hips, int Weight, boolean Gender){
         gender = Gender;
         height = Height;
         neck = Neck;
@@ -17,12 +19,55 @@ public class BodyFat {
         hips = Hips;
         weight = Weight;
         CValue = getCValue();
+        results = getBodyFat();
+    }
+
+    public String getResults() {
+
+        String resultsString = "";
+        if(goodResults) {
+
+            resultsString = "RESULTS" +  "\nGender: " + genderString() + "\n";
+            resultsString += "\nBody Fat: ";
+            if (results.equals("0"))
+                resultsString +="Body fat does not fall on chart!";
+            else
+                resultsString += results;
+            resultsString += "\nCircumference Value: " + Double.toString(CValue);
+
+            resultsString += "\n\nHeight:  " + Double.toString(height);
+            resultsString += "\nNeck: " + Double.toString(neck);
+            if (gender)
+                resultsString += "\nAbdomen: " + Double.toString(abs);
+            else
+                resultsString += "\nWaist: " + Double.toString(abs);
+
+            if (!gender)
+                resultsString += "\nHips: " + Double.toString(hips);
+            resultsString += "\nWeight: " + Integer.toString(weight);
+            resultsString += "\nMinimum weight: " + Integer.toString(getWeightMin());
+            resultsString += "\nMaximum weight: " + Integer.toString(getWeightMax());
+
+            goodResults=false;
+        }
+        else
+            resultsString += results;
+        return resultsString;
+    }
+
+
+
+    public String genderString() {
+        if (gender)
+            return "Male";
+        else
+            return "Female";
     }
 
     private String getBodyFat()
     {
         double Circumference = CValue;
-        int Height = height;//sets a temp height for alteration only in this function
+        double Height = height;//sets a temp height for alteration only in this function
         String fat;
         if (gender){
                 int[][] maleMatrix = {
@@ -71,19 +116,24 @@ public class BodyFat {
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 37, 37, 36, 36, 36},//34.5
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 37, 36}//35
                          };
-                        Height = (Height - 60) * 2;
+                Height = (Height - 60) * 2;
             Circumference = (Circumference - 13.5) * 2;
 
             if (Circumference > 43)
-                fat = "Circumference too large for table";
+                fat = "Circumference value too large for table.  Circumference value: " + Double.toString(Circumference);
+
             else if (Height < 0)
-                fat = "Too short for table";
+                fat = "Too short for table, minimum height is 60''.";
             else if (Height > 39)
-                fat = "Too tall for table";
+                fat = "Too tall for table. maximum height is 79.5''.";
+            else if ((Height%2 !=0)&&(Height%2 !=1))
+                fat = "Please enter a height in half inch increments.";
             else if (Circumference < 0)
-                fat = "Circumference value does not fall on table";
-            else if ((Height >= 0) && (Circumference >= 0))
-                fat = Integer.toString(maleMatrix[(int) Circumference][Height]);
+                fat = "Circumference value does not fall on table. [Circumference = Abs - Neck]";
+            else if ((Height >= 0) && (Circumference >= 0)) {
+                fat = Integer.toString(maleMatrix[(int) Circumference][(int) Height]);
+                goodResults = true;
+            }
             else
                 fat = Integer.toString(102); // I don't know
             }
@@ -160,15 +210,19 @@ public class BodyFat {
                 Height = (Height - 58)*2;
                 Circumference = (Circumference - 45)*2;
                 if (Circumference > 29)
-                    fat = "Circumference too large for table";
+                    fat = "Circumference value too large for table.  Circumference value = " + Double.toString(Circumference);
                 else if (Height < 0)
-                    fat = "Too short for table";
+                    fat = "Too short for table. Minimum height is 58''";
                 else if (Height > 42)
-                    fat = "Too tall for table";
+                    fat = "Too tall for table, Maximum height is 77.5''";
+                else if ((Height%2 !=0)&&(Height%2 !=1))
+                    fat = "Please enter a height in half inch increments.";
                 else if (Circumference < 0 )
-                    fat = "Circumference value does not fall on table";
-                else if((Height>=0) && (Circumference >=0))
-                    fat = Integer.toString(femaleMatrix[Circumference][Height]);
+                    fat = "Circumference value does not fall on table [Circumference value = Waist + hips - neck]";
+                else if(Circumference >=0) {
+                    goodResults = true;
+                    fat = Integer.toString(femaleMatrix[(int) Circumference][(int)Height]);
+                }
                 else
                     fat = Integer.toString(102); // I don't know
         }
@@ -179,31 +233,28 @@ public class BodyFat {
 
     private int getWeightMin()
     {
-        int tempHeight = Math.ceil(height);
         int[] Weight = {85,88,91,94,97,100,104,107,110,114,117,121,125,128,132,136,140,144,148,152,156,160,164,168,173,177,182};
-        return Weight[tempHeight-56];
+        return Weight[(int)Math.ceil(height)-56];
     }
 
     private int getWeightMax()
     {
-        int tempHeight = height;
-        int standard = 0;
-        int[] maleWeight = [122,127,131,136,141,145,150,155,160,165,170,175,180,186,191,197,202,208,214,220,225,231,237,244,250,256,263];
-        int[] femaleWeight = [115,120,124,129,133,137,142,146,151,156,161,166,171,176,181,186,191,197,202,208,213,219,225,230,236,242,248];
-        tempHeight = Math.ceil(height);
+        int standard;
+        int[] maleWeight = {122,127,131,136,141,145,150,155,160,165,170,175,180,186,191,197,202,208,214,220,225,231,237,244,250,256,263};
+        int[] femaleWeight = {115,120,124,129,133,137,142,146,151,156,161,166,171,176,181,186,191,197,202,208,213,219,225,230,236,242,248};
 
         if(gender)
-                standard = maleWeight[height-56];
+                standard = maleWeight[(int)Math.ceil(height)-56];
         else
-                standard = femaleWeight[height-56];
+                standard = femaleWeight[(int)Math.ceil(height)-56];
 
         return standard;
     }
 
 
-    private int getCValue()
+    private double getCValue()
     {
-        int value = 0;
+        double value = 0;
         if (gender)
             value = abs - neck;
         else

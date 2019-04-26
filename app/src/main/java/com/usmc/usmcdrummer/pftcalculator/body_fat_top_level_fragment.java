@@ -15,14 +15,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import static android.view.View.GONE;
+
 
 public class body_fat_top_level_fragment extends Fragment {
 
-    boolean gender;
+    boolean gender=true;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,12 +42,19 @@ public class body_fat_top_level_fragment extends Fragment {
                 new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        TextView tv = view.findViewById(R.id.abs_text);
+                        LinearLayout lay = view.findViewById(R.id.hips_layout);
+
                         switch (checkedId) {
                             case R.id.radio_male: //Male
                                 gender = true;
+                                tv.setText("Abdomen: ");
+                                lay.setVisibility(GONE);
                                 break;
                             case R.id.radio_female: //Female
                                 gender = false;
+                                tv.setText("Waist: ");
+                                lay.setVisibility(View.VISIBLE);
                                 break;
                             default:
                                 break;
@@ -64,22 +74,22 @@ public class body_fat_top_level_fragment extends Fragment {
     }
 
     private void calculateScore(View view){
-        int tempHeight;
-        int tempNeck;
-        int tempAbs;
-        int tempHips;
+        Double tempHeight;
+        double tempNeck;
+        double tempAbs;
+        double tempHips;
         int tempWeight;
-        tempHeight = retrieveValue((EditText) view.findViewById(R.id.height_input));
-        tempNeck = retrieveValue((EditText) view.findViewById(R.id.neck_input));
-        tempAbs = retrieveValue((EditText) view.findViewById(R.id.abs_input));
-        tempHips= retrieveValue((EditText) view.findViewById(R.id.hip_input));
+        tempHeight = retrieveValueDouble((EditText) view.findViewById(R.id.height_input));
+        tempNeck = retrieveValueDouble((EditText) view.findViewById(R.id.neck_input));
+        tempAbs = retrieveValueDouble((EditText) view.findViewById(R.id.abs_input));
+        tempHips= retrieveValueDouble((EditText) view.findViewById(R.id.hip_input));
         tempWeight= retrieveValue((EditText) view.findViewById(R.id.weight_input));
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
         String results;
-        //todo create Body Fat Class and create new body fat item
-        //        CFT cft= new CFT(tempACL, tempMTCMin,tempMTCSec,tempMUFMin, tempMUFSec,gender, ageGroupPos, elevation);
-  //          results = cft.getResults(agegroup);
+
+        BodyFat BF = new BodyFat(tempHeight,tempNeck,tempAbs,tempHips,tempWeight,gender);
+        results = BF.getResults();
 
         alertDialogBuilder.setMessage(results);
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -98,6 +108,18 @@ public class body_fat_top_level_fragment extends Fragment {
         userInput = edit.getText().toString();
         try {
             value = Integer.parseInt(userInput);
+        } catch (NumberFormatException ex) {
+            value = 0;
+        }
+        return value;
+    }
+
+    private double retrieveValueDouble(EditText edit) {
+        double value = 0;
+        String userInput = "";
+        userInput = edit.getText().toString();
+        try {
+            value = Double.parseDouble(userInput);
         } catch (NumberFormatException ex) {
             value = 0;
         }
