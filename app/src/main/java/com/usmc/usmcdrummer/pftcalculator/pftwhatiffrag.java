@@ -115,7 +115,6 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //todo add the check for the run time minutes here, then do the CFT for the run times for 1 length
                 if(runMinET.getText().toString().length()==2)
                     runSecET.requestFocus();
             }

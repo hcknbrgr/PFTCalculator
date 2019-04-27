@@ -59,8 +59,7 @@ Schedule of Releases:
 **** 2.1.0 - Update Gradle
 **** 2.1.0 - Release
 
-todo 2.2.0 - Test out autoswitch to next field for minutes to seconds
-todo 2.2.0 - see if the bottom nav can not pop up during text input
+**** 2.2.0 - Test out autoswitch to next field for minutes to seconds
 todo 2.2.0 - update gradle
 todo 2.2.0 - release
 
