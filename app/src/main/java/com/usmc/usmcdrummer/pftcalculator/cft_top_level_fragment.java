@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,12 +24,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-public class cft_top_level_fragment extends Fragment implements AdapterView.OnItemSelectedListener {
-
-    boolean gender = true;
-    String agegroup = "";
-    int ageGroupPos = 0;
-    boolean elevation = true;
+public class cft_top_level_fragment extends Fragment {
 
     @Nullable
     @Override
@@ -36,89 +33,29 @@ public class cft_top_level_fragment extends Fragment implements AdapterView.OnIt
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_cft_top_level, container, false);
 
-        Spinner ageSpinner = view.findViewById(R.id.age_spinner);
-        ageSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
-                R.array.age_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ageSpinner.setAdapter(adapter);
+        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("CFT Calculator"));
+        tabLayout.addTab(tabLayout.newTab().setText("What If"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
-        maleRadioButton.setChecked(true);
-
-        final RadioGroup radioGroup = view.findViewById(R.id.radio_gender);
-
-        radioGroup.setOnCheckedChangeListener(
-                new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        switch (checkedId) {
-                            case R.id.radio_male: //Male
-                                gender = true;
-                                break;
-                            case R.id.radio_female: //Female
-                                gender = false;
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                });
-
-        CheckBox checkboxvariable = view.findViewById(R.id.elevation_checkbox);
-        checkboxvariable.setOnCheckedChangeListener(
-                new CheckBox.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        elevation = !elevation;
-                    }
-                });
-
-        Button calculateButton = view.findViewById(R.id.calculate_button);
-        calculateButton.setOnClickListener(new View.OnClickListener() {
+        final ViewPager viewPager = view.findViewById(R.id.pager);
+        final CFTPagerAdapter adapter = new CFTPagerAdapter
+                (this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                calculateScore(view);
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
             }
-        });
 
-        final EditText MTCMinET = view.findViewById(R.id.MTC_minutes_text_input);
-        final EditText MTCSecET = view.findViewById(R.id.MTC_seconds_text_input);
-        final EditText MUFMinET = view.findViewById(R.id.MUF_minutes_text_input);
-        final EditText MUFSecET = view.findViewById(R.id.MUF_seconds_text_input);
-
-        MTCMinET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(MTCMinET.getText().toString().length()==1)
-                    MTCSecET.requestFocus();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        MUFMinET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(MUFMinET.getText().toString().length()==1)
-                    MUFSecET.requestFocus();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
@@ -126,69 +63,6 @@ public class cft_top_level_fragment extends Fragment implements AdapterView.OnIt
         return view;
     }
 
-    private void calculateScore(View view){
-        int tempACL = 0;
-
-        int tempMUFMin = 0;
-        int tempMUFSec = 0;
-        int tempMTCMin = 0;
-        int tempMTCSec = 0;
-
-        tempACL = retrieveValue((EditText) view.findViewById(R.id.ACL_input));
-        tempMUFMin = retrieveValue((EditText) view.findViewById(R.id.MUF_minutes_text_input));
-        tempMUFSec = retrieveValue((EditText) view.findViewById(R.id.MUF_seconds_text_input));
-        tempMTCMin = retrieveValue((EditText) view.findViewById(R.id.MTC_minutes_text_input));
-        tempMTCSec = retrieveValue((EditText) view.findViewById(R.id.MTC_seconds_text_input));
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
-        String results;
-        if (tempMUFSec > 59 || tempMTCSec > 59) {
-            results = "Please enter a valid time for seconds (<60)";
-        } else {
-            CFT cft= new CFT(tempACL, tempMTCMin,tempMTCSec,tempMUFMin, tempMUFSec,gender, ageGroupPos, elevation);
-            results = cft.getResults(agegroup);
-        }
-
-        alertDialogBuilder.setMessage(results);
-        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-            }
-        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-
-    }
-
-    private int retrieveValue(EditText edit) {
-        int value = 0;
-        String userInput = "";
-        userInput = edit.getText().toString();
-        try {
-            value = Integer.parseInt(userInput);
-        } catch (NumberFormatException ex) {
-            value = 0;
-        }
-        return value;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        switch (parent.getId()) {
-            case R.id.age_spinner:
-                agegroup = parent.getItemAtPosition(pos).toString();
-                ageGroupPos = pos;
-                break;
-
-        }
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    }
 
 
 }

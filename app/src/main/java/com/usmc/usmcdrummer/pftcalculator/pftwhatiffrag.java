@@ -275,7 +275,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
             results.append("Please enter a valid time for seconds (<60)");
         } else {
             PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch, tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
-            results.append(pft.getWhatIfResults(scoreClass, desiredScore));
+            results.append(pft.getWhatIfResults(scoreClass, desiredScore, agegroup));
         }
 
         alertDialogBuilder.setMessage(results);

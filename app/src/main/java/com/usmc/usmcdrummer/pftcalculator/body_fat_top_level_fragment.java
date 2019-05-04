@@ -44,17 +44,20 @@ public class body_fat_top_level_fragment extends Fragment {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         TextView tv = view.findViewById(R.id.abs_text);
                         LinearLayout lay = view.findViewById(R.id.hips_layout);
+                        EditText abInput = view.findViewById(R.id.abs_input);
 
                         switch (checkedId) {
                             case R.id.radio_male: //Male
                                 gender = true;
                                 tv.setText("Abdomen: ");
                                 lay.setVisibility(GONE);
+                                abInput.setNextFocusDownId(R.id.weight_input);
                                 break;
                             case R.id.radio_female: //Female
                                 gender = false;
                                 tv.setText("Waist: ");
                                 lay.setVisibility(View.VISIBLE);
+                                abInput.setNextFocusDownId(R.id.hip_input);
                                 break;
                             default:
                                 break;

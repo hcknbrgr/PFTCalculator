@@ -73,7 +73,7 @@ public class PFT {
         makeScores();
     }
 
-    public SpannableStringBuilder getWhatIfResults(int desiredClass, int desScore) {
+    public SpannableStringBuilder getWhatIfResults(int desiredClass, int desScore, String ageString) {
         int whatIfTotal = TotalScore;  //Sets the running total to the score they have from the events they entered
         int startLength;
         SpannableStringBuilder resultsString = new SpannableStringBuilder();
@@ -93,7 +93,7 @@ public class PFT {
 
 
         if (scorePerEvent > 100) {
-            resultsString.append("You cannot obtain that class!");
+            resultsString.append("You cannot obtain that score!");
             return resultsString;
         }
 
@@ -108,6 +108,8 @@ public class PFT {
             }
 
         }
+
+        resultsString.append("RESULTS\n\nAge Group: " + ageString + "\nGender: " + genderString() + "\n");
 
         resultsString.append("\nDesired Class: " + Integer.toString(desiredClass + 1) + //Returns the desired class 1, 2, or 3
                 "\nScore required: " + Integer.toString(desiredScore) + "\n");  //Returns the score required of that class

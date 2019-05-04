@@ -60,10 +60,17 @@ Schedule of Releases:
 **** 2.1.0 - Release
 
 **** 2.2.0 - Test out autoswitch to next field for minutes to seconds
-todo 2.2.0 - update gradle
-todo 2.2.0 - release
+**** 2.2.0 - update gradle
+**** 2.2.0 - release
 
-TODO 3.0.0 - Add CFT Whatif
+**** 3.0.0 - Add CFT Whatif
+**** 3.0.0 - Update focus on Body fat calc for Male
+**** 3.0.0 - Update results message for PFT what-if to include gender and age group
+**** 3.0.0 - Fix CFT Elevation scores.  It alters the actual time when entered in elevation to factor in for scores, make temp
+todo 3.0.0 - Update Gradle
+todo 3.0.0 - Update screen shots
+todo 3.0.0 - Release
+
 
 TODO 4.0.0 - Add access to charts -- TableLayout?
  */
