@@ -67,13 +67,33 @@ Schedule of Releases:
 **** 3.0.0 - Update focus on Body fat calc for Male
 **** 3.0.0 - Update results message for PFT what-if to include gender and age group
 **** 3.0.0 - Fix CFT Elevation scores.  It alters the actual time when entered in elevation to factor in for scores, make temp
-todo 3.0.0 - Update Gradle
-todo 3.0.0 - Update screen shots
-todo 3.0.0 - Release
+**** 3.0.0 - Update Gradle
+**** 3.0.0 - Update screen shots
+**** 3.0.0 - Release
+
+**** 3.1.0 - Height and Weight minmax update
+**** 3.1.0 - Have PFT or CFT autoload based on time of the year?
+    todo - Update Gradle
+    todo - Release
+
+TODO 4.0.0 - Make user profile!
+    todo - add a menu in the top toolbar to set user profile (gender, age range)
+    todo - save user profile
+    todo - load user profile on startup
+
+TODO 4.1.0 - Shift Height and weight into 2 tabs.  One for ht weight and body fat allowed. one for actual calculator
+    todo - make XML layouts
+    todo - add age dropdown to body fat for authorized amount and PFT / CFT class for added "bonus"
+
+TODO 4.2.0 - Refactor CFT tables if possible
 
 
-TODO 4.0.0 - Add access to charts -- TableLayout?
- */
+TODO ?.0.0 - Add access to charts -- TableLayout?
+    todo - come up with some different layout options, 4th
+
+TODO ?.0.0 - Update what-if and body fat calculators to include "Done" button on keyboard?
+
+*/
 
 package com.usmc.usmcdrummer.pftcalculator;
 
@@ -85,7 +105,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -98,11 +122,18 @@ public class MainActivity extends AppCompatActivity {
         // Retrieve a reference to the BottomNavigationView and listen for click events.
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.getMenu().findItem(R.id.action_PFT).setTitle("PFT");
-        bottomNav.getMenu().findItem(R.id.action_BF).setTitle("Body Fat");
+        bottomNav.getMenu().findItem(R.id.action_BF).setTitle("Ht/Wt");
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction()
+        Calendar today = Calendar.getInstance();
+        Log.i("Calendar Month:", Integer.toString(today.get(Calendar.MONTH)));
+        if(today.get(Calendar.MONTH)<=5)
+            getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_host, new pft_top_level_fragment())
                 .commit();
+        else
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_host, new cft_top_level_fragment())
+                    .commit();
 
     }
 

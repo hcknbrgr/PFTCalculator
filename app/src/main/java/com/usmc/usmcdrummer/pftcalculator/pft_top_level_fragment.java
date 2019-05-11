@@ -8,19 +8,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link pft_top_level_fragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link pft_top_level_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class pft_top_level_fragment extends Fragment {
 
     @Nullable
@@ -60,6 +55,7 @@ public class pft_top_level_fragment extends Fragment {
 
             }
         });
+
 
         return view;
     }

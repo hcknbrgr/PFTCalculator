@@ -11,6 +11,8 @@ public class BodyFat {
     String results;
     boolean goodResults=false;
 
+    public BodyFat(){};
+
     public BodyFat (double Height, double Neck, double Abs, double Hips, int Weight, boolean Gender){
         gender = Gender;
         height = Height;
@@ -247,6 +249,26 @@ public class BodyFat {
                 standard = maleWeight[(int)Math.ceil(height)-56];
         else
                 standard = femaleWeight[(int)Math.ceil(height)-56];
+
+        return standard;
+    }
+
+    public int getWeightMin(int newHeight)
+    {
+        int[] Weight = {85,88,91,94,97,100,104,107,110,114,117,121,125,128,132,136,140,144,148,152,156,160,164,168,173,177,182};
+        return Weight[newHeight-56];
+    }
+
+    public int getWeightMax(int newHeight, boolean newGender)
+    {
+        int standard;
+        int[] maleWeight = {122,127,131,136,141,145,150,155,160,165,170,175,180,186,191,197,202,208,214,220,225,231,237,244,250,256,263};
+        int[] femaleWeight = {115,120,124,129,133,137,142,146,151,156,161,166,171,176,181,186,191,197,202,208,213,219,225,230,236,242,248};
+
+        if(newGender)
+            standard = maleWeight[newHeight-56];
+        else
+            standard = femaleWeight[newHeight-56];
 
         return standard;
     }
