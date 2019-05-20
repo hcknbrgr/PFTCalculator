@@ -74,10 +74,7 @@ Schedule of Releases:
 **** 3.1.0 - Height and Weight minmax update
 **** 3.1.0 - Have PFT or CFT autoload based on time of the year?
 
-TODO 4.0.0 - Make user profile!
-    todo - add a menu in the top toolbar to set user profile (gender, age range)
-    todo - save user profile
-    todo - load user profile on startup
+**** 3.2.0 - Make user profile
 
 TODO - Make it so that the activities don't restart -- pause activity when activating another one?
 
