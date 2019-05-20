@@ -52,8 +52,11 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                              Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_pftwhatiffrag, container, false);
-        //Generate Content in spinner and preselect Radio Button
 
+        MainActivity profileGetter = (MainActivity)getActivity();
+        String userProfile = profileGetter.getUserProfile();
+        String userGender = userProfile.substring(0,1);//0 male 1 female
+        String userAge = userProfile.substring(1);//position of spinner
 
         Spinner ageSpinner = view.findViewById(R.id.age_spinner);
         ageSpinner.setOnItemSelectedListener(this);
@@ -61,6 +64,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                 R.array.age_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ageSpinner.setAdapter(adapter);
+        ageSpinner.setSelection(Integer.parseInt(userAge));
 
         Spinner pushpullSpinner = view.findViewById(R.id.pushpull_spinner);
         pushpullSpinner.setOnItemSelectedListener(this);
@@ -87,8 +91,13 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
 
 
         RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
-        maleRadioButton.setChecked(true);
-
+        RadioButton femaleRadioButton = view.findViewById(R.id.radio_female);
+        if(userGender.equals("0"))
+            maleRadioButton.setChecked(true);
+        else {
+            femaleRadioButton.setChecked(true);
+            gender = false;
+        }
         Button calculateButton = view.findViewById(R.id.calculate_button);
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -73,13 +73,13 @@ Schedule of Releases:
 
 **** 3.1.0 - Height and Weight minmax update
 **** 3.1.0 - Have PFT or CFT autoload based on time of the year?
-    todo - Update Gradle
-    todo - Release
 
 TODO 4.0.0 - Make user profile!
     todo - add a menu in the top toolbar to set user profile (gender, age range)
     todo - save user profile
     todo - load user profile on startup
+
+TODO - Make it so that the activities don't restart -- pause activity when activating another one?
 
 TODO 4.1.0 - Shift Height and weight into 2 tabs.  One for ht weight and body fat allowed. one for actual calculator
     todo - make XML layouts
@@ -87,6 +87,8 @@ TODO 4.1.0 - Shift Height and weight into 2 tabs.  One for ht weight and body fa
 
 TODO 4.2.0 - Refactor CFT tables if possible
 
+
+TODO X.X.X - Show max and min reps next to each items - maybe as hint texts?
 
 TODO ?.0.0 - Add access to charts -- TableLayout?
     todo - come up with some different layout options, 4th
@@ -97,27 +99,51 @@ TODO ?.0.0 - Update what-if and body fat calculators to include "Done" button on
 
 package com.usmc.usmcdrummer.pftcalculator;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Calendar;
-import java.util.Date;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String FILE_NAME = "user_profile.txt";
+    private String userProfile = "00"; //digit 1: Gender (0 male, 1 female), digit 2: Age group position
+    private String tempProfile = "00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        load();
+        Log.e("USER PROFILE LOADED: ", userProfile);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
 
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("");
 
         // Retrieve a reference to the BottomNavigationView and listen for click events.
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
@@ -125,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.getMenu().findItem(R.id.action_BF).setTitle("Ht/Wt");
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         Calendar today = Calendar.getInstance();
-        Log.i("Calendar Month:", Integer.toString(today.get(Calendar.MONTH)));
         if(today.get(Calendar.MONTH)<=5)
             getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_host, new pft_top_level_fragment())
@@ -135,6 +160,99 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_host, new cft_top_level_fragment())
                     .commit();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.userprofile, menu);
+        return true;
+    }
+
+    public String getUserProfile(){
+        return userProfile;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.menuProfileItem) {
+
+            LayoutInflater inflater = this.getLayoutInflater();
+            final View view = inflater.inflate(R.layout.profile_adb, null);
+            String userGender = userProfile.substring(0,1);//0 male 1 female
+            String userAge = userProfile.substring(1);//position of spinner
+
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setView(view);
+            Spinner ageSpinner = view.findViewById(R.id.profileSpinner);
+            ageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    char temp = tempProfile.charAt(0);
+                    tempProfile = temp + Integer.toString(position);
+                    Log.i("current profile: ", userProfile);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.age_array, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ageSpinner.setAdapter(adapter);
+            ageSpinner.setSelection(Integer.parseInt(userAge));
+
+            RadioButton maleRadioButton = view.findViewById(R.id.profile_male);
+            RadioButton femaleRadioButton = view.findViewById(R.id.profile_female);
+
+
+            if(userGender.equals("0"))
+                maleRadioButton.setChecked(true);
+            else
+                femaleRadioButton.setChecked(true);
+
+
+            final RadioGroup radioGroup = view.findViewById(R.id.profile_gender);
+
+            radioGroup.setOnCheckedChangeListener(
+                    new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            char temp = tempProfile.charAt(1);
+                            switch (checkedId) {
+                                case R.id.profile_male: //Male
+                                    tempProfile = "0" + temp;
+                                    break;
+                                case R.id.profile_female: //Female
+                                    tempProfile = "1" + temp;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        }
+                    });
+
+            Log.i("User profile: ", userProfile);
+            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    save(view);
+                    recreate();
+                }
+            });
+            alertDialogBuilder.setNegativeButton("Cancel", null);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -167,5 +285,59 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+    public void save(View v) {
+
+        FileOutputStream fos = null;
+
+        try {
+            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            fos.write(tempProfile.getBytes());
+            Toast.makeText(this, "Profile saved", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void load() {
+        FileInputStream fis = null;
+
+        try {
+            fis = openFileInput(FILE_NAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String text;
+
+            while ((text = br.readLine()) != null) {
+                sb.append(text);
+            }
+
+            userProfile=sb.toString();
+            tempProfile = userProfile;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 }

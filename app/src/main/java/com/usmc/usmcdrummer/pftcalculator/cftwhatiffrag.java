@@ -48,12 +48,23 @@ public class cftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         final View view = inflater.inflate(R.layout.cftwhatiffrag, container, false);
         //Generate Content in spinner and preselect Radio Button
 
+        MainActivity profileGetter = (MainActivity)getActivity();
+        String userProfile = profileGetter.getUserProfile();
+        String userGender = userProfile.substring(0,1);//0 male 1 female
+        String userAge = userProfile.substring(1);//position of spinner
+
+
         Spinner ageSpinner = view.findViewById(R.id.age_spinner);
         ageSpinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
                 R.array.age_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ageSpinner.setAdapter(adapter);
+        ageSpinner.setSelection(Integer.parseInt(userAge));
+
+
+
+
 
         scoreSpinner = view.findViewById(R.id.score_spinner);
         scoreAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, scoreArrayList);
@@ -66,9 +77,18 @@ public class cftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
 
 
         RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
-        maleRadioButton.setChecked(true);
+        RadioButton femaleRadioButton = view.findViewById(R.id.radio_female);
 
+
+        if(userGender.equals("0"))
+            maleRadioButton.setChecked(true);
+        else {
+            femaleRadioButton.setChecked(true);
+            gender = false;
+        }
         final RadioGroup radioGroup = view.findViewById(R.id.radio_gender);
+
+
 
         radioGroup.setOnCheckedChangeListener(
                 new RadioGroup.OnCheckedChangeListener() {

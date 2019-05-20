@@ -41,12 +41,21 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_pftfrag, container, false);
 
+        MainActivity profileGetter = (MainActivity)getActivity();
+        String userProfile = profileGetter.getUserProfile();
+        String userGender = userProfile.substring(0,1);//0 male 1 female
+        String userAge = userProfile.substring(1);//position of spinner
+
+        Log.i("User Age: ", userAge);
+        Log.i("UserGender: ", userGender);
+
         Spinner ageSpinner = view.findViewById(R.id.age_spinner);
         ageSpinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
                 R.array.age_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ageSpinner.setAdapter(adapter);
+        ageSpinner.setSelection(Integer.parseInt(userAge));
 
         Spinner pushpullSpinner = view.findViewById(R.id.pushpull_spinner);
         pushpullSpinner.setOnItemSelectedListener(this);
@@ -63,8 +72,13 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
         runrowSpinner.setAdapter(runrowadapter);
 
         RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
-        maleRadioButton.setChecked(true);
-
+        RadioButton femaleRadioButton = view.findViewById(R.id.radio_female);
+        if(userGender.equals("0"))
+            maleRadioButton.setChecked(true);
+        else {
+            femaleRadioButton.setChecked(true);
+            gender = false;
+        }
         final EditText runMinEditText = view.findViewById(R.id.runtime_minutes_text_input);
         final EditText runSecEditText = view.findViewById(R.id.runtime_seconds_text_input);
         runMinEditText.addTextChangedListener(new TextWatcher() {

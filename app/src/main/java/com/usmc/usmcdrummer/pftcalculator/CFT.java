@@ -68,7 +68,6 @@ public class CFT {
     public SpannableStringBuilder getWhatIfResults(int desiredClass, int desiredScore, String ageString) {
         int startLength;
         SpannableStringBuilder resultsString = new SpannableStringBuilder();
-        //todo if you failed an event return message
         int remainingScore = desiredScore - TotalScore;//TotalScore is the calculated CFT score with what was entered
         boolean MUFNeeded = false;
         boolean MTCNeeded = false;

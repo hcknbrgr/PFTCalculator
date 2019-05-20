@@ -36,9 +36,24 @@ public class body_fat_top_level_fragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_body_fat_top_level, container, false);
         final EditText heightInput = view.findViewById(R.id.height_input);
 
-        RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
-        maleRadioButton.setChecked(true);
+        MainActivity profileGetter = (MainActivity)getActivity();
+        String userProfile = profileGetter.getUserProfile();
+        String userGender = userProfile.substring(0,1);//0 male 1 female
 
+        RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
+        RadioButton femaleRadioButton = view.findViewById(R.id.radio_female);
+        if(userGender.equals("0"))
+            maleRadioButton.setChecked(true);
+        else {
+            femaleRadioButton.setChecked(true);
+            gender = false;
+            TextView tv = view.findViewById(R.id.abs_text);
+            LinearLayout lay = view.findViewById(R.id.hips_layout);
+            EditText abInput = view.findViewById(R.id.abs_input);
+            tv.setText("Waist: ");
+            lay.setVisibility(View.VISIBLE);
+            abInput.setNextFocusDownId(R.id.hip_input);
+        }
         final RadioGroup radioGroup = view.findViewById(R.id.radio_gender);
 
         radioGroup.setOnCheckedChangeListener(
@@ -107,7 +122,6 @@ public class body_fat_top_level_fragment extends Fragment {
         TextView maxWeight = view.findViewById(R.id.max_weight_profile);
         try {
             double tempHeight = Double.parseDouble(s.toString());
-            //todo fix the gender problem
             if ((tempHeight >= 56) && (tempHeight <= 82)) {
                 BodyFat bf = new BodyFat();
                 minWeight.setText(Integer.toString(bf.getWeightMin((int)Math.round(tempHeight))));
