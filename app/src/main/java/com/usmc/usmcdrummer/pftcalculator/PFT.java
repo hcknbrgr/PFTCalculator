@@ -608,7 +608,7 @@ public class PFT {
             temp += 90;
         int neededMin = temp / 60 + minMin;
         int neededSec = temp % 60 + minSec;
-        if (minSec >= 60) {
+        if (neededSec >= 60) {
             neededMin++;
             neededSec -= 60;
         }

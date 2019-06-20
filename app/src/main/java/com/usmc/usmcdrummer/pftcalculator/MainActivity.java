@@ -76,15 +76,10 @@ Schedule of Releases:
 
 **** 3.2.0 - Make user profile
 
-TODO 3.3.0 - Shift Height and weight into 2 tabs.  One for ht weight and body fat allowed. one for actual calculator
-    todo - make XML layouts
+**** 3.3.0 - Shift Height and weight into 2 tabs.  One for ht weight and body fat allowed. one for actual calculator
+**** 3.3.0 - Fixed Glitch in 51+ that would cause app to crash when entered max pullups score
 
-TAB 1 -- "HT/WT STANDARDS" -- HEIGHT, AGE RANGE, GENDER, PFT/CFT CLASS FOR WAIVER
-         - when you enter height, auto show min/max weight standards. auto show age range BF% standards
-TAB 2 -- "BODY COMP" -- CURRENT CALCULATOR (HT, NECK, WAIST, HIPS -- leave Weight off)
-
-    todo - add age dropdown to body fat for authorized amount and PFT / CFT class for added "bonus"
-    todo - create arrays for authorized BF%
+TODO 3.3.1 - Fix Run Time display in PFT WHATIF
 
 TODO - 3.4.0 - Create PFT Calc plank update
              - Create PFT What-if plank update
