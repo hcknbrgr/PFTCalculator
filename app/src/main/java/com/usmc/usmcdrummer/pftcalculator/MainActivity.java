@@ -76,21 +76,29 @@ Schedule of Releases:
 
 **** 3.2.0 - Make user profile
 
+TODO 3.3.0 - Shift Height and weight into 2 tabs.  One for ht weight and body fat allowed. one for actual calculator
+    todo - make XML layouts
+
+TAB 1 -- "HT/WT STANDARDS" -- HEIGHT, AGE RANGE, GENDER, PFT/CFT CLASS FOR WAIVER
+         - when you enter height, auto show min/max weight standards. auto show age range BF% standards
+TAB 2 -- "BODY COMP" -- CURRENT CALCULATOR (HT, NECK, WAIST, HIPS -- leave Weight off)
+
+    todo - add age dropdown to body fat for authorized amount and PFT / CFT class for added "bonus"
+    todo - create arrays for authorized BF%
+
+TODO - 3.4.0 - Create PFT Calc plank update
+             - Create PFT What-if plank update
+
+TODO - Show max and min reps next to each items - maybe as hint texts? I think making it a small button will be best for now.
+
+TODO - Refactor CFT tables if possible
+
 TODO - Make it so that the activities don't restart -- pause activity when activating another one?
 
-TODO 4.1.0 - Shift Height and weight into 2 tabs.  One for ht weight and body fat allowed. one for actual calculator
-    todo - make XML layouts
-    todo - add age dropdown to body fat for authorized amount and PFT / CFT class for added "bonus"
-
-TODO 4.2.0 - Refactor CFT tables if possible
-
-
-TODO X.X.X - Show max and min reps next to each items - maybe as hint texts?
-
-TODO ?.0.0 - Add access to charts -- TableLayout?
+TODO - Add access to charts -- TableLayout?
     todo - come up with some different layout options, 4th
 
-TODO ?.0.0 - Update what-if and body fat calculators to include "Done" button on keyboard?
+TODO - Update what-if and body fat calculators to include "Done" button on keyboard?
 
 */
 

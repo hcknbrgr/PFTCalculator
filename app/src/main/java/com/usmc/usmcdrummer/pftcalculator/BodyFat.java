@@ -24,7 +24,7 @@ public class BodyFat {
         results = getBodyFat();
     }
 
-    public String getResults() {
+    public String getResults() {//todo update results to show MAX BF% with current BF%...eventually
 
         String resultsString = "";
         if(goodResults) {
@@ -46,7 +46,6 @@ public class BodyFat {
 
             if (!gender)
                 resultsString += "\nHips: " + Double.toString(hips);
-            resultsString += "\nWeight: " + Integer.toString(weight);
             resultsString += "\nMinimum weight: " + Integer.toString(getWeightMin());
             resultsString += "\nMaximum weight: " + Integer.toString(getWeightMax());
 
@@ -273,6 +272,15 @@ public class BodyFat {
         return standard;
     }
 
+    public int getBodyFatMax(int newAge, boolean newGender)
+    {
+        int[] bodyFatChart = {18,18,19,19,20,20,21,21};
+
+        if (newGender)
+            return bodyFatChart[newAge];
+        else
+            return bodyFatChart[newAge]+8;
+    }
 
     private double getCValue()
     {

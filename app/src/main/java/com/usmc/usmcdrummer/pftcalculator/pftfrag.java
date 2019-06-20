@@ -24,7 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 
-public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListener {
+public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListener { //TODO FIX CRASH 18 PULLUPS 51+
     boolean gender = true;
     String agegroup = "";
     int ageGroupPos = 0;

@@ -1,22 +1,15 @@
 package com.usmc.usmcdrummer.pftcalculator;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -26,54 +19,22 @@ import android.widget.TextView;
 
 import static android.view.View.GONE;
 
+//todo make this work again.....woops
 
-public class body_fat_top_level_fragment extends Fragment {
+public class bodyfatcalc_frag extends Fragment {
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_body_fat_top_level, container, false);
+    boolean gender = true;
 
-        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Ht/Wt"));
-        tabLayout.addTab(tabLayout.newTab().setText("Body Comp"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+    public bodyfatcalc_frag() {
 
-        final ViewPager viewPager = view.findViewById(R.id.pager);
-        final BFPagerAdapter adapter = new BFPagerAdapter
-                (this.getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        return view;
     }
 
-    /*
-    boolean gender=true;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_body_fat_top_level, container, false);
+        final View view = inflater.inflate(R.layout.fragment_bodyfatcalc_frag, container, false);
         final EditText heightInput = view.findViewById(R.id.height_input);
 
         MainActivity profileGetter = (MainActivity)getActivity();
@@ -110,14 +71,12 @@ public class body_fat_top_level_fragment extends Fragment {
                                 tv.setText("Abdomen: ");
                                 lay.setVisibility(GONE);
                                 abInput.setNextFocusDownId(R.id.weight_input);
-                                calculateMinMax(view, heightInput.getText());
                                 break;
                             case R.id.radio_female: //Female
                                 gender = false;
                                 tv.setText("Waist: ");
                                 lay.setVisibility(View.VISIBLE);
                                 abInput.setNextFocusDownId(R.id.hip_input);
-                                calculateMinMax(view, heightInput.getText());
                                 break;
                             default:
                                 break;
@@ -131,70 +90,23 @@ public class body_fat_top_level_fragment extends Fragment {
                 calculateScore(view);
             }
         });
-
-
-        heightInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                calculateMinMax(view, s);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-
-
         return view;
     }
 
-    private void calculateMinMax(View view, CharSequence s){
-        TextView minWeight = view.findViewById(R.id.min_weight_profile);
-        TextView maxWeight = view.findViewById(R.id.max_weight_profile);
-        try {
-            double tempHeight = Double.parseDouble(s.toString());
-            if ((tempHeight >= 56) && (tempHeight <= 82)) {
-                BodyFat bf = new BodyFat();
-                minWeight.setText(Integer.toString(bf.getWeightMin((int)Math.round(tempHeight))));
-                maxWeight.setText(Integer.toString(bf.getWeightMax((int)Math.round(tempHeight), gender)));
-            }
-            else
-            {
-                minWeight.setText("");
-                maxWeight.setText("");
-            }
-        }
-        catch(NumberFormatException e){
-            minWeight.setText("");
-            maxWeight.setText("");
-        }
-    }
-
     private void calculateScore(View view){
-        Double tempHeight;
+        double tempHeight;
         double tempNeck;
         double tempAbs;
         double tempHips;
-        int tempWeight;
         tempHeight = retrieveValueDouble((EditText) view.findViewById(R.id.height_input));
         tempNeck = retrieveValueDouble((EditText) view.findViewById(R.id.neck_input));
         tempAbs = retrieveValueDouble((EditText) view.findViewById(R.id.abs_input));
         tempHips= retrieveValueDouble((EditText) view.findViewById(R.id.hip_input));
-        tempWeight= retrieveValue((EditText) view.findViewById(R.id.weight_input));
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
         String results;
 
-        BodyFat BF = new BodyFat(tempHeight,tempNeck,tempAbs,tempHips,tempWeight,gender);
+        BodyFat BF = new BodyFat(tempHeight,tempNeck,tempAbs,tempHips,0,gender);
         results = BF.getResults();
 
         alertDialogBuilder.setMessage(results);
@@ -208,17 +120,6 @@ public class body_fat_top_level_fragment extends Fragment {
         alertDialog.show();
 
     }
-    private int retrieveValue(EditText edit) {
-        int value = 0;
-        String userInput = "";
-        userInput = edit.getText().toString();
-        try {
-            value = Integer.parseInt(userInput);
-        } catch (NumberFormatException ex) {
-            value = 0;
-        }
-        return value;
-    }
 
     private double retrieveValueDouble(EditText edit) {
         double value = 0;
@@ -231,5 +132,7 @@ public class body_fat_top_level_fragment extends Fragment {
         }
         return value;
     }
- */
+
+
+
 }

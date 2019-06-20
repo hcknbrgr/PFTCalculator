@@ -29,6 +29,11 @@
         <item>46–50</item>
         <item>51+</item>
     </string-array>
+    <string-array name="pftcft_array">
+        <item>&lt;250</item>
+        <item>250-284</item>
+        <item>285+</item>
+    </string-array>
     <string-array name="pushpull_array">
         <item>Pullups</item>
         <item>Pushups</item>
