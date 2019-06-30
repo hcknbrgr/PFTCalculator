@@ -78,22 +78,25 @@ Schedule of Releases:
 
 **** 3.3.0 - Shift Height and weight into 2 tabs.  One for ht weight and body fat allowed. one for actual calculator
 **** 3.3.0 - Fixed Glitch in 51+ that would cause app to crash when entered max pullups score
-
-TODO 3.3.1 - Fix Run Time display in PFT WHATIF
+**** 3.3.0 - Fix Run Time display in PFT WHATIF
 
 TODO - 3.4.0 - Create PFT Calc plank update
              - Create PFT What-if plank update
 
-TODO - Show max and min reps next to each items - maybe as hint texts? I think making it a small button will be best for now.
+TODO - 3.4.1 - Add about page
 
-TODO - Refactor CFT tables if possible
+TODO - 3.4.2 - Show max and min reps next to each items - maybe as hint texts? I think making it a small button will be best for now.
 
-TODO - Make it so that the activities don't restart -- pause activity when activating another one?
+TODO - 3.5.0 - Refactor CFT tables if possible
 
-TODO - Add access to charts -- TableLayout?
-    todo - come up with some different layout options, 4th
+TODO - 4.0.0 - Make it so that the activities don't restart -- pause activity when activating another one?
 
-TODO - Update what-if and body fat calculators to include "Done" button on keyboard?
+TODO - 5.0.0 - Add access to charts -- TableLayout?
+             - come up with some different layout options, 4th Nav at bottom?
+
+TODO - 6.0.0 - Add tracking log
+
+TODO - X.X.X - Update what-if and body fat calculators to include "Done" button on keyboard?
 
 */
 

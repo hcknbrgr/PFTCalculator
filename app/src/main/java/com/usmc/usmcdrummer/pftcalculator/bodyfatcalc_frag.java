@@ -19,8 +19,6 @@ import android.widget.TextView;
 
 import static android.view.View.GONE;
 
-//todo make this work again.....woops
-
 public class bodyfatcalc_frag extends Fragment {
 
     boolean gender = true;

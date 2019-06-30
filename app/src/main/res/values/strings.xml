@@ -38,6 +38,10 @@
         <item>Pullups</item>
         <item>Pushups</item>
     </string-array>
+    <string-array name="crunchplank_array">
+        <item>Crunches</item>
+        <item>Plank Time</item>
+    </string-array>
     <string-array name="runrow_array">
         <item>Run Time</item>
         <item>Row Time</item>

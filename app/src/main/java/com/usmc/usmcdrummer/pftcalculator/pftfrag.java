@@ -24,13 +24,24 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 
-public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListener { //TODO FIX CRASH 18 PULLUPS 51+
+public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListener {
     boolean gender = true;
     String agegroup = "";
     int ageGroupPos = 0;
     boolean pullupsSelected = true;
     boolean runningSelected = true;
     boolean elevation = true;
+    boolean crunchesSelected = true;
+
+    //todo double check XML layout to be good
+    //todo populate crunches/plank spinner
+    //todo auto hide/show editText on dropdown selection and change nextDown autofocus
+    //todo pull data input into editTexts as necessary
+    //todo generate new PFT constructor for dropdown variable
+    //todo calculate plank scores
+    //todo calculate PFT with plank option
+    //todo create output for scores
+
 
     public pftfrag() {
         // Required empty public constructor
@@ -46,9 +57,6 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
         String userGender = userProfile.substring(0,1);//0 male 1 female
         String userAge = userProfile.substring(1);//position of spinner
 
-        Log.i("User Age: ", userAge);
-        Log.i("UserGender: ", userGender);
-
         Spinner ageSpinner = view.findViewById(R.id.age_spinner);
         ageSpinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
@@ -56,6 +64,12 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ageSpinner.setAdapter(adapter);
         ageSpinner.setSelection(Integer.parseInt(userAge));
+
+        Spinner crunchSpinner = view.findViewById(R.id.crunchplank_spinner);
+        crunchSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> crunchAdapter = ArrayAdapter.createFromResource(this.getActivity(),R.array.crunchplank_array, android.R.layout.simple_spinner_item);
+        crunchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        crunchSpinner.setAdapter(crunchAdapter);
 
         Spinner pushpullSpinner = view.findViewById(R.id.pushpull_spinner);
         pushpullSpinner.setOnItemSelectedListener(this);

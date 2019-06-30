@@ -902,6 +902,7 @@ public class PFT {
     private int getIndex(int amount, int min, int max, int length) {
         int index = 0;
         if (amount < min) {
+
             index = 0;
         } else if (amount > max) {
             index = length - 1;
@@ -1006,6 +1007,7 @@ public class PFT {
         int[] CrunchTable;
         int[] RunTable;
         int[] RowTable;
+
 
 
         if (Gender) {//male tables
