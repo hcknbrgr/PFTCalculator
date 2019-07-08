@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -31,11 +32,10 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
     boolean pullupsSelected = true;
     boolean runningSelected = true;
     boolean elevation = true;
-    boolean crunchesSelected = true;
+    boolean plankSelected = false;
+    View rootView;
 
-    //todo double check XML layout to be good
-    //todo populate crunches/plank spinner
-    //todo auto hide/show editText on dropdown selection and change nextDown autofocus
+    //todo auto shift from minutes to seconds for plank after 1 digit entered
     //todo pull data input into editTexts as necessary
     //todo generate new PFT constructor for dropdown variable
     //todo calculate plank scores
@@ -51,7 +51,7 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_pftfrag, container, false);
-
+        rootView = view;
         MainActivity profileGetter = (MainActivity)getActivity();
         String userProfile = profileGetter.getUserProfile();
         String userGender = userProfile.substring(0,1);//0 male 1 female
@@ -105,6 +105,27 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(runMinEditText.getText().toString().length()==2)
                     runSecEditText.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final EditText plankMinutes = view.findViewById(R.id.crunches_text_input);
+        final EditText plankSeconds = view.findViewById(R.id.plank_seconds);
+        plankMinutes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(plankSelected)
+                  if(plankMinutes.getText().toString().length()==1)
+                        plankSeconds.requestFocus();
             }
 
             @Override
@@ -171,6 +192,27 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
                     runningSelected = false;
                 else runningSelected = true;
                 break;
+            case R.id.crunchplank_spinner:
+                if (parent.getItemAtPosition(pos).toString().equals("Plank Time"))
+                {
+                    plankSelected = true;
+                    TextView colon = rootView.findViewById(R.id.plank_colon);
+                    colon.setVisibility(View.VISIBLE);
+                    EditText plankSeconds = rootView.findViewById(R.id.plank_seconds);
+                    plankSeconds.setVisibility(View.VISIBLE);
+                    EditText crunchInput = rootView.findViewById(R.id.crunches_text_input);
+                    crunchInput.setNextFocusDownId(R.id.plank_seconds);
+                    crunchInput.requestFocus();
+                }
+                else {
+                    plankSelected = false;
+                    TextView colon = rootView.findViewById(R.id.plank_colon);
+                    colon.setVisibility(View.GONE);
+                    EditText plankSeconds = rootView.findViewById(R.id.plank_seconds);
+                    plankSeconds.setVisibility(View.GONE);
+                    EditText crunchInput = rootView.findViewById(R.id.crunches_text_input);
+                    crunchInput.setNextFocusDownId(R.id.runtime_minutes_text_input);
+                }
         }
 
     }
