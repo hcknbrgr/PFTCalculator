@@ -10,6 +10,7 @@ public class PFT {
     private int PullupsScore = 0;
     private int PushupsScore = 0;
     private int CrunchesScore = 0;
+    private int PlankScore = 0;
     private int RunScore = 0;
     private int RowScore = 0;
     private boolean Gender = true; //true for male -- false for female
@@ -24,19 +25,22 @@ public class PFT {
     private int Pushups = 0;
 
     private int Crunches = 0;
+    private int PlankTimeSec = 0;
+    private int PlankTimeMin = 0;
     private int RunTimeMin = 0;
     private int RunTimeSec = 0;
     private int RowTimeMin = 0;
     private int RowTimeSec = 0;
     private boolean runningSelected = false;
     private boolean pullupsSelected = false;
+    private boolean plankSelected = false;
 
     private boolean runRequired = false;
     private boolean rowRequired = false;
     private boolean pullRequired = false;
     private boolean pushrequired = false;
     private boolean crunchRequired = false;
-
+    private boolean plankRequred = false;
 
     public PFT() //Generic constructor
     {
@@ -66,6 +70,48 @@ public class PFT {
             Pullups = 0;
         }
         Crunches = crunches;
+
+        Gender = gender;
+        ageGroup = age_group;
+        Elevation = elevation;
+        makeScores();
+    }
+
+    public PFT(int pullups, boolean pullSelected, int crunches, int plankTimeSec, boolean planksSelected, int runTimeMin, int runTimeSec, boolean RunningSelected, boolean gender, int age_group, boolean elevation) {
+        runningSelected = RunningSelected;
+        pullupsSelected = pullSelected;
+        plankSelected = planksSelected;
+
+        if (!runningSelected) {
+            RowTimeMin = runTimeMin;
+            RowTimeSec = runTimeSec;
+            RunTimeMin = 0;
+            RunTimeSec = 0;
+        } else {
+            RunTimeMin = runTimeMin;
+            RunTimeSec = runTimeSec;
+            RowTimeMin = 0;
+            RowTimeSec = 0;
+        }
+
+        if (plankSelected){
+            PlankTimeMin = crunches;
+            PlankTimeSec = plankTimeSec;
+            Crunches = 0;
+        }
+        else {
+            Crunches = crunches;
+            PlankTimeSec = 0;
+            PlankTimeMin = 0;
+        }
+
+        if (pullSelected) {
+            Pullups = pullups;
+            Pushups = 0;
+        } else {
+            Pushups = pullups;
+            Pullups = 0;
+        }
 
         Gender = gender;
         ageGroup = age_group;
@@ -400,6 +446,23 @@ public class PFT {
         index += minreps;
         int[] returnIndex = new int[]{index, PushTable[tableIndex]};
         return returnIndex;
+    }
+
+    private int getPlankScore(){
+        int score = 0;
+        int time = PlankTimeMin*60 + PlankTimeSec;
+
+        //array is listed as the amount of seconds to achieve the score.
+        int[] timeArray = new int[] {63, 67, 70, 73, 77, 80, 83, 86,90,93,96,100,103,106,109,113,116,119,123,126,129,132,136,139,142,146,149,152,155,159,162,165,169,172,75,178,182,185,188,192,195,198,201,205,208,211,215,218,221,224,228,231,234,238,241,244,247,251,254,257,260};
+        int i=0;
+        if(timeArray[0] > time)
+            return score;
+        if(time >= 260) //hard code 4:20 or greater
+            return 100;
+        while(time>=timeArray[i])
+            i++;
+        score = i+39;
+        return score;
     }
 
     private int[] getCrunchIndex(int score) {
@@ -802,8 +865,10 @@ public class PFT {
             resultsString += "\nPullups: " + Pullups + "   Score: " + PullupsScore;
 
 
-        resultsString +=
-                "\nCrunches: " + Crunches + "   Score: " + CrunchesScore;
+        if (!plankSelected)
+            resultsString += "\nCrunches: " + Crunches + "   Score: " + CrunchesScore;
+        else
+            resultsString += "\nPlank Time: " + PlankTimeMin + ":" + String.format("%02d", PlankTimeSec) + "  Score: " + PlankScore;
 
         if (!runningSelected)
             resultsString += "\nRow Time: " + RowTimeMin + ":" + String.format("%02d", RowTimeSec) + "   Score: " + RowScore;
@@ -817,48 +882,8 @@ public class PFT {
         return resultsString;
     }
 
-    public int getPullups() {
-        return this.Pullups;
-    }
-
-    public int getPushups() {
-        return this.Pushups;
-    }
-
-    public int getCrunches() {
-        return this.Crunches;
-    }
-
-    public int getRunTimeMin() {
-        return this.RunTimeMin;
-    }
-
-    public int getRunTimeSec() {
-        return this.RunTimeSec;
-    }
-
-    public int getPullupsScore() {
-        return this.PullupsScore;
-    }
-
-    public int getPushupsScore() {
-        return this.PushupsScore;
-    }
-
-    public int getCrunchesScore() {
-        return this.CrunchesScore;
-    }
-
-    public int getRunScore() {
-        return this.RunScore;
-    }
-
     public int getTotalScore() {
         return this.TotalScore;
-    }
-
-    public int getPFTClass() {
-        return this.PFTClass;
     }
 
     public String elevationString() {
@@ -1027,8 +1052,17 @@ public class PFT {
                         PushupsScore = PushTable[getIndex(Pushups, 42, 81, PushTable.length)];
                     } else PushupsScore = 0;
 
-                    //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 70, 104, CrunchTable.length)];
+                    //CALCULATE CRUNCHES or PLANK Score
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else{
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 70, 104, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
+
+
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1055,7 +1089,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 70, 109, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 70, 109, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1081,7 +1122,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 70, 115, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 70, 115, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN TIME
                     if (runningSelected)
@@ -1108,8 +1156,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 70, 115, CrunchTable.length)];
-
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 70, 115, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
                     //calculate run
                     if (runningSelected)
                         RunScore = RunTable[getRunIndex(RunTimeMin, RunTimeSec, 18, 0, RunTable.length, Elevation)];
@@ -1134,7 +1188,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 70, 109, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 70, 109, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //calculate run
                     if (runningSelected)
@@ -1164,7 +1225,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 65, 104, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 65, 104, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //calculate run
                     if (runningSelected)
@@ -1191,7 +1259,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 50, 99, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 50, 99, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1217,7 +1292,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 40, 99, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 40, 99, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1244,7 +1326,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 50, 100, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 50, 100, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1271,7 +1360,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 55, 105, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 55, 105, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1297,7 +1393,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 60, 110, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 60, 110, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1325,7 +1428,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 60, 105, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 60, 105, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1352,7 +1462,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 60, 105, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 60, 105, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1378,7 +1495,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 55, 100, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 55, 100, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1405,7 +1529,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 50, 100, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 50, 100, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1431,7 +1562,14 @@ public class PFT {
                     } else PushupsScore = 0;
 
                     //CALCULATE CRUNCHES Score
-                    CrunchesScore = CrunchTable[getIndex(Crunches, 40, 100, CrunchTable.length)];
+                    if (plankSelected){
+                        PlankScore = getPlankScore();
+                        CrunchesScore = 0;
+                    }
+                    else {
+                        CrunchesScore = CrunchTable[getIndex(Crunches, 40, 100, CrunchTable.length)];
+                        PlankScore = 0;
+                    }
 
                     //CALCULATE RUN Score
                     if (runningSelected)
@@ -1442,7 +1580,7 @@ public class PFT {
             }
         }
 
-        TotalScore = PullupsScore + PushupsScore + CrunchesScore + RunScore + RowScore;
+        TotalScore = PullupsScore + PushupsScore + PlankScore + CrunchesScore + RunScore + RowScore;
 
         if (TotalScore < 150)
             PFTClass = 0;
@@ -1453,7 +1591,7 @@ public class PFT {
         else
             PFTClass = 1;
 
-        if ((PullupsScore == 0 && PushupsScore == 0) || CrunchesScore == 0 || (RunScore == 0 && RowScore == 0))
+        if ((PullupsScore == 0 && PushupsScore == 0) || (PlankScore == 0 && CrunchesScore == 0) || (RunScore == 0 && RowScore == 0))
             PFTClass = 0;
     }
 }

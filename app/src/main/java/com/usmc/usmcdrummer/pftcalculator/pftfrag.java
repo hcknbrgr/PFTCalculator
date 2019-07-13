@@ -35,7 +35,6 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
     boolean plankSelected = false;
     View rootView;
 
-    //todo auto shift from minutes to seconds for plank after 1 digit entered
     //todo pull data input into editTexts as necessary
     //todo generate new PFT constructor for dropdown variable
     //todo calculate plank scores
@@ -239,20 +238,26 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
         int tempPull = 0;
 
         int tempCrunch = 0;
+        int tempPlankSeconds = 0;
+
         int tempRunMin = 0;
         int tempRunSec = 0;
 
+
         tempPull = retrieveValue((EditText) view.findViewById(R.id.pullups_text_input));
         tempCrunch = retrieveValue((EditText) view.findViewById(R.id.crunches_text_input));
+        tempPlankSeconds = retrieveValue((EditText) view.findViewById(R.id.plank_seconds));
         tempRunMin = retrieveValue((EditText) view.findViewById(R.id.runtime_minutes_text_input));
         tempRunSec = retrieveValue((EditText) view.findViewById(R.id.runtime_seconds_text_input));
 
+
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
         String results;
-        if (tempRunSec > 59) {
+        if (tempRunSec > 59 || tempPlankSeconds > 59) {
             results = "Please enter a valid time for seconds (<60)";
         } else {
-            PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch, tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
+            PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch,tempPlankSeconds,plankSelected, tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
             results = pft.getResults(agegroup);
         }
 
