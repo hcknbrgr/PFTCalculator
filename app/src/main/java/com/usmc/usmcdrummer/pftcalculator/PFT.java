@@ -2,7 +2,6 @@ package com.usmc.usmcdrummer.pftcalculator;
 
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.style.StyleSpan;
 
 public class PFT {
@@ -213,8 +212,26 @@ public class PFT {
                     .append(Integer.toString(crunchstuff[1]));
             resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             whatIfTotal += crunchstuff[1];
-        } else
-            resultsString.append("\nCrunches: " + Crunches + " Score: " + CrunchesScore);
+        } else if (plankRequred){
+            int[] plankstuff;
+            plankstuff = getPlankIndex(scorePerEvent);
+            neededScore -= plankstuff[2];
+            remainingScores--;
+            if (remainingScores > 0)
+                scorePerEvent = neededScore / remainingScores + ((neededScore % remainingScores == 0) ? 0 : 1);
+            startLength = resultsString.length();
+            resultsString.append("\nPlank Longer Than: " + Integer.toString(plankstuff[0]) +
+                    ":" + String.format("%02d", plankstuff[1]) +
+                    "\nScore: " + plankstuff[2]);
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            whatIfTotal += plankstuff[2];
+        }
+        else {
+            if (PlankScore == 0)
+                resultsString.append("\nCrunches: " + Crunches + " Score: " + CrunchesScore); // todo modify this with if/else for crunch/plank
+            else
+                resultsString.append("\nPlank Time: " + PlankTimeMin + ":" + String.format("%02d", PlankTimeSec) + " Score: " + PlankScore);
+        }
 
         if (runRequired) {
             int[] runstuff;
@@ -558,6 +575,31 @@ public class PFT {
         return returnIndex;
     }
 
+    private int[] getPlankIndex(int score)
+    {
+
+        //returns 0: needed minutes
+        //returns 1: needed sceonds
+        //returns 2: score given for reps completed
+        int neededMin;
+        int neededSec;
+        int index;
+
+        //passes in score, returns the time and score achieved
+        index = score-40;
+        if (index <0) {
+            index = 0;
+            score = 40;
+        }
+        int[] timeArray = new int[] {63, 67, 70, 73, 77, 80, 83, 86,90,93,96,100,103,106,109,113,116,119,123,126,129,132,136,139,142,146,149,152,155,159,162,165,169,172,75,178,182,185,188,192,195,198,201,205,208,211,215,218,221,224,228,231,234,238,241,244,247,251,254,257,260};
+        neededMin = timeArray[index]/60;
+        neededSec = timeArray[index]%60;
+        int[] returnIndex = new int[]{neededMin, neededSec, score};
+        return returnIndex;
+
+
+    }
+
     private int[] getRunIndex(int score) {
 
         //returns 0: needed minutes
@@ -803,7 +845,7 @@ public class PFT {
 
     private int scoresRemaining() {
         int total = 0;
-        if (runningSelected && (RunScore == 0) && (RunTimeMin != 0))
+        if (runningSelected && (RunScore == 0) && (RunTimeMin != 0)) //check to see if you failed an event!
             return -1;
         else if (!runningSelected && (RowScore == 0) && RowTimeMin != 0)
             return -1;
@@ -811,7 +853,9 @@ public class PFT {
             return -1;
         else if (!pullupsSelected && PushupsScore == 0 && Pushups != 0)
             return -1;
-        if (Crunches != 0 && CrunchesScore == 0)
+        if (!plankSelected && (Crunches != 0 && CrunchesScore == 0))
+            return -1;
+        else if (plankSelected && (PlankScore == 0 && (PlankTimeMin != 0 || PlankTimeSec !=0)))
             return -1;
 
         if (!runningSelected) {
@@ -835,11 +879,18 @@ public class PFT {
             pushrequired = true;
         }
 
-        if (CrunchesScore == 0) {
-            total++;
-            crunchRequired = true;
+        if (plankSelected) {
+            if (PlankScore == 0) {
+                total++;
+                plankRequred = true;
+            }
         }
-
+        else if(!plankSelected) {
+            if (CrunchesScore == 0) {
+                total++;
+                crunchRequired = true;
+            }
+        }
         return total;
 
     }

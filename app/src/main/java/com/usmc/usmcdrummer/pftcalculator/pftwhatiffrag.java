@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,12 +37,14 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
     int ageGroupPos = 0;
     boolean pullupsSelected = true;
     boolean runningSelected = true;
+    boolean plankSelected = false;
     int scoreClass = 0;
     int desiredScore = 0;
     boolean elevation = true;
     ArrayList<String> scoreArrayList = new ArrayList<>();
     ArrayAdapter<String> scoreAdapter;
     Spinner scoreSpinner;
+    View rootView;
 
     public pftwhatiffrag() {
         // Required empty public constructor
@@ -52,7 +55,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                              Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_pftwhatiffrag, container, false);
-
+        rootView = view;
         MainActivity profileGetter = (MainActivity)getActivity();
         String userProfile = profileGetter.getUserProfile();
         String userGender = userProfile.substring(0,1);//0 male 1 female
@@ -65,6 +68,12 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ageSpinner.setAdapter(adapter);
         ageSpinner.setSelection(Integer.parseInt(userAge));
+
+        Spinner crunchSpinner = view.findViewById(R.id.crunchplank_spinner);
+        crunchSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> crunchAdapter = ArrayAdapter.createFromResource(this.getActivity(),R.array.crunchplank_array, android.R.layout.simple_spinner_item);
+        crunchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        crunchSpinner.setAdapter(crunchAdapter);
 
         Spinner pushpullSpinner = view.findViewById(R.id.pushpull_spinner);
         pushpullSpinner.setOnItemSelectedListener(this);
@@ -126,6 +135,27 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(runMinET.getText().toString().length()==2)
                     runSecET.requestFocus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        final EditText plankMinutes = view.findViewById(R.id.crunches_text_input);
+        final EditText plankSeconds = view.findViewById(R.id.plank_seconds);
+        plankMinutes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(plankSelected)
+                    if(plankMinutes.getText().toString().length()==1)
+                        plankSeconds.requestFocus();
             }
 
             @Override
@@ -199,6 +229,27 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                     setScoreClass(desiredScore);
                 }
                 break;
+            case R.id.crunchplank_spinner:
+                if (parent.getItemAtPosition(pos).toString().equals("Plank Time"))
+                {
+                    plankSelected = true;
+                    TextView colon = rootView.findViewById(R.id.plank_colon);
+                    colon.setVisibility(View.VISIBLE);
+                    EditText plankSeconds = rootView.findViewById(R.id.plank_seconds);
+                    plankSeconds.setVisibility(View.VISIBLE);
+                    EditText crunchInput = rootView.findViewById(R.id.crunches_text_input);
+                    crunchInput.setNextFocusDownId(R.id.plank_seconds);
+                    crunchInput.requestFocus();
+                }
+                else {
+                    plankSelected = false;
+                    TextView colon = rootView.findViewById(R.id.plank_colon);
+                    colon.setVisibility(View.GONE);
+                    EditText plankSeconds = rootView.findViewById(R.id.plank_seconds);
+                    plankSeconds.setVisibility(View.GONE);
+                    EditText crunchInput = rootView.findViewById(R.id.crunches_text_input);
+                    crunchInput.setNextFocusDownId(R.id.runtime_minutes_text_input);
+                }
         }
     }
 
@@ -268,6 +319,7 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         int tempPull = 0;
 
         int tempCrunch = 0;
+        int tempPlankSeconds = 0;
         int tempRunMin = 0;
         int tempRunSec = 0;
         SpannableStringBuilder results = new SpannableStringBuilder();
@@ -275,15 +327,16 @@ public class pftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
 
         tempPull = retrieveValue((EditText) view.findViewById(R.id.pullups_text_input));
         tempCrunch = retrieveValue((EditText) view.findViewById(R.id.crunches_text_input));
+        tempPlankSeconds = retrieveValue((EditText) view.findViewById(R.id.plank_seconds));
         tempRunMin = retrieveValue((EditText) view.findViewById(R.id.runtime_minutes_text_input));
         tempRunSec = retrieveValue((EditText) view.findViewById(R.id.runtime_seconds_text_input));
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
 
-        if (tempRunSec > 59) {
+        if (tempRunSec > 59 || tempPlankSeconds > 59) {
             results.append("Please enter a valid time for seconds (<60)");
         } else {
-            PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch, tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
+            PFT pft = new PFT(tempPull, pullupsSelected, tempCrunch, tempPlankSeconds, plankSelected,tempRunMin, tempRunSec, runningSelected, gender, ageGroupPos, elevation);
             results.append(pft.getWhatIfResults(scoreClass, desiredScore, agegroup));
         }
 

@@ -118,13 +118,20 @@
                 android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
+                <Spinner
+                    android:id="@+id/crunchplank_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@layout/layout_spinnerbg"
+                    android:paddingEnd="24dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/crunches_label"
+                    android:text=":"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <EditText
                     android:id="@id/crunches_text_input"
@@ -133,7 +140,25 @@
                     android:ems="2"
                     android:inputType="number"
                     android:nextFocusDown="@+id/runtime_minutes_text_input" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:visibility = "gone"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:id="@+id/plank_colon"/>
+                <EditText
+                    android:id="@+id/plank_seconds"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:visibility= "gone"
+                    android:ems="2"
+                    android:inputType="number"
+                    android:nextFocusDown="@id/runtime_minutes_text_input"/>
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
