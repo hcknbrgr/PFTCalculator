@@ -80,8 +80,9 @@ Schedule of Releases:
 **** 3.3.0 - Fixed Glitch in 51+ that would cause app to crash when entered max pullups score
 **** 3.3.0 - Fix Run Time display in PFT WHATIF
 
-TODO - 3.4.0 - Create PFT Calc plank update
+**** 3.4.0 - Create PFT Calc plank update
              - Create PFT What-if plank update
+             - CFT Auto select color july on
 
 TODO - 3.4.1 - Add about page
 
@@ -158,10 +159,12 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_host, new pft_top_level_fragment())
                 .commit();
-        else
+        else {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_host, new cft_top_level_fragment())
                     .commit();
+            bottomNav.setSelectedItemId(R.id.action_CFT);
+        }
 
     }
 
