@@ -228,7 +228,7 @@ public class PFT {
         }
         else {
             if (PlankScore == 0)
-                resultsString.append("\nCrunches: " + Crunches + " Score: " + CrunchesScore); // todo modify this with if/else for crunch/plank
+                resultsString.append("\nCrunches: " + Crunches + " Score: " + CrunchesScore);
             else
                 resultsString.append("\nPlank Time: " + PlankTimeMin + ":" + String.format("%02d", PlankTimeSec) + " Score: " + PlankScore);
         }
@@ -834,7 +834,7 @@ public class PFT {
             temp += 40;
         int neededMin = temp / 60 + minMin;
         int neededSec = temp % 60 + minSec;
-        if (minSec >= 60) {
+        if (neededSec >= 60) {
             neededMin++;
             neededSec -= 60;
         }

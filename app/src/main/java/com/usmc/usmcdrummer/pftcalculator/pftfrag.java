@@ -35,13 +35,6 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
     boolean plankSelected = false;
     View rootView;
 
-    //todo pull data input into editTexts as necessary
-    //todo generate new PFT constructor for dropdown variable
-    //todo calculate plank scores
-    //todo calculate PFT with plank option
-    //todo create output for scores
-
-
     public pftfrag() {
         // Required empty public constructor
     }

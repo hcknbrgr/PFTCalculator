@@ -84,7 +84,7 @@ Schedule of Releases:
              - Create PFT What-if plank update
              - CFT Auto select color july on
 
-TODO - 3.4.1 - Add about page
+TODO - 3.4.1 - Add about page - include email me and please rate?
 
 TODO - 3.4.2 - Show max and min reps next to each items - maybe as hint texts? I think making it a small button will be best for now.
 

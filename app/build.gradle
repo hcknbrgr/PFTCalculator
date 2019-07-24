@@ -6,8 +6,8 @@ android {
         applicationId "com.usmc.usmcdrummer.pftcalculator"
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 19
-        versionName "3.4.0"
+        versionCode 20
+        versionName "3.4.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
