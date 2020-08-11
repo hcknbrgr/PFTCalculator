@@ -118,6 +118,101 @@ public class PFT {
         makeScores();
     }
 
+   /* public int[] getWhatIf300Results(String ageString) {
+
+        int[] returnScores = new int[5];
+
+        if (pullRequired) {
+            int[] pullstuff;
+            pullstuff = getPullIndex(100); //returns required pullups to achieve scorePerEventScore and the score
+            returnScores[0] = pullstuff[0];
+        } else if (pushrequired) {
+            int[] pushstuff;
+            pushstuff = getPushIndex(100);
+            returnScores[0] = pushstuff[0];
+        } else { //todo keep putting returnScore[0] to required scores
+            if (PushupsScore == 0)
+                resultsString.append("\nPullups: ")
+                        .append(Integer.toString(Pullups))
+                        .append(" Score: ")
+                        .append(Integer.toString(PullupsScore));
+            else
+                resultsString.append("\nPushups: ")
+                        .append(Integer.toString(Pushups))
+                        .append(" Score: ")
+                        .append(Integer.toString(PushupsScore));
+        }
+
+        if (crunchRequired) {
+            int[] crunchstuff;
+            crunchstuff = getCrunchIndex(scorePerEvent);
+            neededScore -= crunchstuff[1];
+            remainingScores--;
+            if (remainingScores > 0)
+                scorePerEvent = neededScore / remainingScores + ((neededScore % remainingScores == 0) ? 0 : 1);
+            startLength = resultsString.length();
+            resultsString.append("\nCrunches Required: ")
+                    .append(Integer.toString(crunchstuff[0]))
+                    .append(" Score: ")
+                    .append(Integer.toString(crunchstuff[1]));
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            whatIfTotal += crunchstuff[1];
+        } else if (plankRequred){
+            int[] plankstuff;
+            plankstuff = getPlankIndex(scorePerEvent);
+            neededScore -= plankstuff[2];
+            remainingScores--;
+            if (remainingScores > 0)
+                scorePerEvent = neededScore / remainingScores + ((neededScore % remainingScores == 0) ? 0 : 1);
+            startLength = resultsString.length();
+            resultsString.append("\nPlank Longer Than: " + Integer.toString(plankstuff[0]) +
+                    ":" + String.format("%02d", plankstuff[1]) +
+                    "\nScore: " + plankstuff[2]);
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            whatIfTotal += plankstuff[2];
+        }
+        else {
+            if (PlankScore == 0)
+                resultsString.append("\nCrunches: " + Crunches + " Score: " + CrunchesScore);
+            else
+                resultsString.append("\nPlank Time: " + PlankTimeMin + ":" + String.format("%02d", PlankTimeSec) + " Score: " + PlankScore);
+        }
+
+        if (runRequired) {
+            int[] runstuff;
+            runstuff = getRunIndex(scorePerEvent);
+            neededScore -= runstuff[2];
+            remainingScores--;
+            startLength = resultsString.length();
+            resultsString.append("\nRun Faster Than: " + Integer.toString(runstuff[0]) +
+                    ":" + String.format("%02d", runstuff[1]) +
+                    " Score: " + runstuff[2]);
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            whatIfTotal += runstuff[2];
+        } else if (rowRequired) {
+            int[] rowstuff;
+            rowstuff = getRowIndex(scorePerEvent);
+            neededScore -= rowstuff[2];
+            remainingScores--;
+            startLength = resultsString.length();
+            resultsString.append("\nRow Faster Than: " + Integer.toString(rowstuff[0]) +
+                    ":" + String.format("%02d", rowstuff[1]) +
+                    "\nScore: " + rowstuff[2]);
+            resultsString.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), startLength, resultsString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            whatIfTotal += rowstuff[2];
+        } else {
+            if (RunScore == 0)
+                resultsString.append("\nRow Time: " + RowTimeMin + ":" + String.format("%02d", RowTimeSec) + " Score: " + RowScore);
+            else
+                resultsString.append("\nRun Time: " + RunTimeMin + ":" + String.format("%02d", RunTimeSec) + " Score: " + RunScore);
+
+        }
+        resultsString.append("\n\nTotal Score: " + Integer.toString(whatIfTotal));
+        resultsString.append("\nClass Obtained: " + Integer.toString(getClassObtained(whatIfTotal)));
+
+        return resultsString;
+    }*/
+
     public SpannableStringBuilder getWhatIfResults(int desiredClass, int desScore, String ageString) {
         int whatIfTotal = TotalScore;  //Sets the running total to the score they have from the events they entered
         int startLength;

@@ -62,10 +62,6 @@ public class cftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
         ageSpinner.setAdapter(adapter);
         ageSpinner.setSelection(Integer.parseInt(userAge));
 
-
-
-
-
         scoreSpinner = view.findViewById(R.id.score_spinner);
         scoreAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, scoreArrayList);
         scoreAdapter.add("First Class (235+)");
@@ -164,9 +160,6 @@ public class cftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
             }
         });
 
-
-
-
         return view;
     }
 
@@ -242,8 +235,6 @@ public class cftwhatiffrag extends Fragment implements AdapterView.OnItemSelecte
                     setScoreClass(desiredScore);
                 }
                 break;
-
-
 
         }
     }

@@ -77,6 +77,12 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
         runrowadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         runrowSpinner.setAdapter(runrowadapter);
 
+
+
+        //todo initialize PFT with whatif PFT of 300 to Hint text
+        //todo initialize 300 PFT to variables
+        //todo display the text
+        //todo on age group or gender change, reestablish baseline and display
         RadioButton maleRadioButton = view.findViewById(R.id.radio_male);
         RadioButton femaleRadioButton = view.findViewById(R.id.radio_female);
         if(userGender.equals("0"))
@@ -87,6 +93,7 @@ public class pftfrag extends Fragment implements AdapterView.OnItemSelectedListe
         }
         final EditText runMinEditText = view.findViewById(R.id.runtime_minutes_text_input);
         final EditText runSecEditText = view.findViewById(R.id.runtime_seconds_text_input);
+        //runMinEditText.setHint("3");
         runMinEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

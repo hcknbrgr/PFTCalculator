@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.usmc.usmcdrummer.pftcalculator"
         minSdkVersion 17
-        targetSdkVersion 27
-        versionCode 20
-        versionName "3.4.1"
+        targetSdkVersion 28
+        versionCode 22
+        versionName "3.4.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

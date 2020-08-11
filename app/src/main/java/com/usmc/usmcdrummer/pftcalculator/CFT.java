@@ -69,11 +69,12 @@ public class CFT {
         int startLength;
         SpannableStringBuilder resultsString = new SpannableStringBuilder();
         int remainingScore = desiredScore - TotalScore;//TotalScore is the calculated CFT score with what was entered
+
         boolean MUFNeeded = false;
         boolean MTCNeeded = false;
         boolean ACLNeeded = false;
         boolean failedEvent = false;
-        if (remainingScore < 0)
+        if (remainingScore <= 0)
             remainingScore = 1;
 
         if((MUFMin !=0)&&(MUFScore==0))
@@ -178,7 +179,7 @@ public class CFT {
             TotalScore += MUFResults[0];
         }
         else
-            resultsString.append("\nMANUF Run Time: " + MUFMin + ":" + String.format("%02d", MUFSec) + "Score: " + MUFScore);
+            resultsString.append("\nMANUF Run Time: " + MUFMin + ":" + String.format("%02d", MUFSec) + " Score: " + MUFScore);
         resultsString.append("\n\nTotal Score: " + Integer.toString(TotalScore));
         resultsString.append("\nClass Obtained: " + Integer.toString(getClassObtained(TotalScore)));
         return resultsString;
@@ -200,7 +201,7 @@ public class CFT {
                 {100,100,100,100,100,100,100,100}, //2:38
                 {100, 99,100,100,100,100,100,100},
                 {100, 98, 99,100,100,100,100,100},
-                { 99, 98, 99,100,100,100,100,100},
+                { 99, 98, 98,100,100,100,100,100},
                 { 98, 96, 97,100,100,100,100,100}, //2:42
                 { 97, 96, 97, 99,100,100,100,100},
                 { 96, 95, 96, 98,100,100,100,100},
@@ -990,7 +991,8 @@ public class CFT {
                 {0, 0, 0, 0, 0, 0, 0, 40},
                 {0, 0, 0, 0, 0, 0, 0, 0}};
         else
-            MUFTable =new int[][]{ {100, 100, 100, 100, 100, 100, 100, 100},
+            MUFTable =new int[][]{
+                    {100, 100, 100, 100, 100, 100, 100, 100},
                     {100, 100, 99, 100, 100, 100, 100, 100},
                     {100, 100, 99, 100, 100, 100, 100, 100},
                     {100, 100, 98, 100, 100, 100, 100, 100},
@@ -1335,7 +1337,7 @@ public class CFT {
                         {100,100,100,100,100,100,100,100}, //2:38
                         {100, 99,100,100,100,100,100,100},
                         {100, 98, 99,100,100,100,100,100},
-                        { 99, 98, 99,100,100,100,100,100},
+                        { 99, 98, 98,100,100,100,100,100},
                         { 98, 96, 97,100,100,100,100,100}, //2:42
                         { 97, 96, 97, 99,100,100,100,100},
                         { 96, 95, 96, 98,100,100,100,100},
