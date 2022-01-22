@@ -242,7 +242,7 @@ public class PFT {
                 resultsString.append("Only pushups needed, more than 70 points required");
                 return resultsString;
             }
-            if ((neededScore - 70) / (remainingScores - 1) > 100) {
+            else if ((remainingScores>1)&&(((neededScore - 70) / (remainingScores - 1) + ((neededScore % remainingScores == 0) ? 0 : 1)) > 100)) { //271 for all 3 will break this.
                 resultsString.append("Pushups needed, need too many points afterwards");
                 return resultsString;
             }
@@ -256,7 +256,7 @@ public class PFT {
 
         if (pullRequired) {
             int[] pullstuff;
-            pullstuff = getPullIndex(scorePerEvent); //returns required pullups to achieve scorePerEventScore and the score
+            pullstuff = getPullIndex(scorePerEvent); //returns required amount of pullups to achieve scorePerEventScore and the score achieved
             neededScore -= pullstuff[1];
             remainingScores--;
             if (remainingScores > 0)
@@ -295,7 +295,7 @@ public class PFT {
 
         if (crunchRequired) {
             int[] crunchstuff;
-            crunchstuff = getCrunchIndex(scorePerEvent);
+            crunchstuff = getCrunchIndex(scorePerEvent); //only  called if crunches are required, scorePerEvent needs to be greater than 100 to throw an out of bounds error
             neededScore -= crunchstuff[1];
             remainingScores--;
             if (remainingScores > 0)
